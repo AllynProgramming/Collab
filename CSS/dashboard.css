@@ -86,6 +86,12 @@ h1 em { color: var(--emerald); font-weight: 600; }
 .field-group select:focus,
 .field-group textarea:focus { outline: none; border-color: rgba(45, 106, 79, 0.6); box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.12); }
 .field-group textarea { resize: vertical; min-height: 110px; }
+.time-slot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; min-height: 56px; }
+.time-slot { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 12px; border: 1px solid rgba(82, 183, 136, 0.26); border-radius: 12px; background: rgba(216, 243, 220, 0.42); color: var(--jungle); font-size: 11px; font-weight: 800; letter-spacing: 0.04em; transition: all 0.2s ease; }
+.time-slot:hover { border-color: rgba(45, 106, 79, 0.7); transform: translateY(-1px); }
+.time-slot.selected { border-color: var(--gold); background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(82, 183, 136, 0.12)); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.14); }
+.slot-empty, .slot-hint { color: var(--muted); font-size: 11px; }
+.slot-hint { display: block; margin-top: 4px; }
 .full-width { width: 100%; }
 .sidebar-panel { display: grid; gap: 20px; }
 .mini-panel { padding: 20px; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.7); }

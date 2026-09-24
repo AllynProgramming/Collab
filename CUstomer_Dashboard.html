@@ -101,15 +101,18 @@
                             </select>
                         </div>
 
-                        <div class="field-row">
-                            <div class="field-group">
-                                <label for="date">Preferred date</label>
-                                <input type="date" id="date" name="date" required>
+                        <div class="field-group">
+                            <label for="date">Preferred date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+
+                        <div class="field-group">
+                            <label>Available time slots</label>
+                            <div id="timeSlots" class="time-slot-grid" aria-live="polite">
+                                <span class="slot-empty">Choose a service and date to see available times.</span>
                             </div>
-                            <div class="field-group">
-                                <label for="time">Preferred time</label>
-                                <input type="time" id="time" name="time" required>
-                            </div>
+                            <input type="hidden" id="time" name="time" required>
+                            <small id="slotHint" class="slot-hint">Morning and afternoon slots are offered for your selected service.</small>
                         </div>
 
                         <div class="field-group">
@@ -295,6 +298,102 @@
             `).join('');
         }
 
+        const SERVICE_TIME_SLOTS = {
+            'Facial & Skincare': ['09:00 AM', '10:30 AM', '12:30 PM', '02:00 PM', '03:30 PM', '05:00 PM'],
+            'Hair Styling & Care': ['08:30 AM', '10:00 AM', '12:00 PM', '01:30 PM', '03:00 PM', '04:30 PM'],
+            'Body Spa & Massage': ['09:30 AM', '11:00 AM', '01:00 PM', '02:30 PM', '04:00 PM', '06:00 PM'],
+            'Nail Art & Care': ['09:00 AM', '10:30 AM', '12:00 PM', '02:00 PM', '04:00 PM'],
+            'Waxing & Threading': ['08:30 AM', '10:00 AM', '11:30 AM', '01:30 PM', '03:00 PM'],
+            'Hand & Foot Care': ['09:00 AM', '10:30 AM', '01:00 PM', '03:00 PM', '05:00 PM']
+        };
+
+        const serviceSelect = document.getElementById('service');
+        const dateInput = document.getElementById('date');
+        const timeInput = document.getElementById('time');
+        const timeSlotsContainer = document.getElementById('timeSlots');
+        const slotHint = document.getElementById('slotHint');
+
+        function formatSlotForValue(slotText) {
+            const [time, period] = slotText.split(' ');
+            const [hours, minutes] = time.split(':').map(Number);
+            const hour24 = period === 'AM' ? (hours === 12 ? 0 : hours) : (hours === 12 ? 12 : hours + 12);
+            return `${String(hour24).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        }
+
+        function getDateAvailability(dateString) {
+            if (!dateString) return 'open';
+            const date = new Date(`${dateString}T00:00:00`);
+            const day = date.getDay();
+            return day === 0 || day === 6 ? 'weekend' : 'weekday';
+        }
+
+        function renderTimeSlots() {
+            const selectedService = serviceSelect.value;
+            const selectedDate = dateInput.value;
+
+            if (!selectedService || !selectedDate) {
+                timeSlotsContainer.innerHTML = '<span class="slot-empty">Choose a service and date to see available times.</span>';
+                slotHint.textContent = 'Morning and afternoon slots are offered for your selected service.';
+                timeInput.value = '';
+                return;
+            }
+
+            const baseSlots = SERVICE_TIME_SLOTS[selectedService] || [];
+            const availability = getDateAvailability(selectedDate);
+            const filteredSlots = availability === 'weekend'
+                ? baseSlots.filter((slot, index) => index % 2 === 0)
+                : baseSlots;
+
+            if (!filteredSlots.length) {
+                timeSlotsContainer.innerHTML = '<span class="slot-empty">No available slots for this service on the selected day.</span>';
+                slotHint.textContent = 'Please choose another date or service.';
+                timeInput.value = '';
+                return;
+            }
+
+            const selectedSlot = timeInput.value;
+            const slotMarkup = filteredSlots.map((slot) => {
+                const value = formatSlotForValue(slot);
+                const isSelected = selectedSlot === value;
+                return `<button type="button" class="time-slot ${isSelected ? 'selected' : ''}" data-time="${value}" aria-pressed="${isSelected}">${slot}</button>`;
+            }).join('');
+
+            timeSlotsContainer.innerHTML = slotMarkup;
+            slotHint.textContent = availability === 'weekend'
+                ? 'Weekend appointments are available in limited morning slots.'
+                : 'Available slots are shown for your selected service and date.';
+
+            timeSlotsContainer.querySelectorAll('.time-slot').forEach((button) => {
+                button.addEventListener('click', () => {
+                    timeSlotsContainer.querySelectorAll('.time-slot').forEach((slotButton) => {
+                        slotButton.classList.remove('selected');
+                        slotButton.setAttribute('aria-pressed', 'false');
+                    });
+
+                    button.classList.add('selected');
+                    button.setAttribute('aria-pressed', 'true');
+                    timeInput.value = button.dataset.time;
+                });
+            });
+
+            if (!filteredSlots.some((slot) => formatSlotForValue(slot) === selectedSlot)) {
+                timeInput.value = '';
+            }
+        }
+
+        function initBookingDate() {
+            const today = new Date();
+            const minDate = new Date(today);
+            minDate.setDate(today.getDate() + 1);
+            const isoMinDate = minDate.toISOString().split('T')[0];
+            dateInput.min = isoMinDate;
+            dateInput.value = isoMinDate;
+            renderTimeSlots();
+        }
+
+        serviceSelect.addEventListener('change', renderTimeSlots);
+        dateInput.addEventListener('change', renderTimeSlots);
+
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -347,6 +446,7 @@
             window.location.href = 'Landing_Page.html';
         });
 
+        initBookingDate();
         renderAppointments();
     </script>
 </body>
