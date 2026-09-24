@@ -108,9 +108,17 @@ h1 em { color: var(--emerald); font-weight: 600; }
 .appointment-meta h3 { color: var(--deep); font-size: 13px; font-weight: 800; }
 .appointment-meta p { margin-top: 6px; color: var(--muted); font-size: 10px; }
 .appointment-meta i { width: 13px; color: var(--leaf); }
+.appointment-item-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.mini-action-button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 10px; border-radius: 999px; background: rgba(45, 106, 79, 0.08); color: var(--emerald); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.mini-action-button:hover { background: rgba(45, 106, 79, 0.14); }
 .status-badge { display: inline-flex; align-items: center; justify-content: center; padding: 7px 10px; border-radius: 999px; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .status-badge.confirmed { background: rgba(82, 183, 136, .12); color: var(--emerald); }
 .status-badge.pending { background: rgba(212, 175, 55, .12); color: #8b5e20; }
+.reschedule-panel { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+.compact-heading { margin-bottom: 12px; }
+.compact-form { margin-top: 0; }
+.reschedule-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 4px; }
+.small-button { padding: 12px 18px; }
 .empty-state { padding: 18px; border: 1px dashed rgba(82, 183, 136, .4); border-radius: 14px; color: var(--muted); background: rgba(216, 243, 220, .2); font-size: 12px; }
 .recommendation-list { display: grid; gap: 12px; margin-top: 20px; }
 .recommendation-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.62); }

@@ -145,6 +145,51 @@
                     </div>
 
                     <div id="appointmentsList" class="appointments-list" aria-live="polite"></div>
+
+                    <div id="reschedulePanel" class="reschedule-panel hidden" aria-live="polite">
+                        <div class="panel-heading compact-heading">
+                            <div>
+                                <span class="section-kicker">Update booking</span>
+                                <h2>Reschedule appointment</h2>
+                            </div>
+                        </div>
+
+                        <form id="rescheduleForm" class="booking-form compact-form">
+                            <input type="hidden" id="rescheduleId" name="rescheduleId">
+
+                            <div class="field-group">
+                                <label for="rescheduleService">Service</label>
+                                <select id="rescheduleService" name="rescheduleService" required>
+                                    <option value="">Select a service</option>
+                                    <option value="Facial & Skincare">Facial &amp; Skincare</option>
+                                    <option value="Hair Styling & Care">Hair Styling &amp; Care</option>
+                                    <option value="Body Spa & Massage">Body Spa &amp; Massage</option>
+                                    <option value="Nail Art & Care">Nail Art &amp; Care</option>
+                                    <option value="Waxing & Threading">Waxing &amp; Threading</option>
+                                    <option value="Hand & Foot Care">Hand &amp; Foot Care</option>
+                                </select>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="rescheduleDate">Preferred date</label>
+                                <input type="date" id="rescheduleDate" name="rescheduleDate" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label>Available time slots</label>
+                                <div id="rescheduleTimeSlots" class="time-slot-grid" aria-live="polite">
+                                    <span class="slot-empty">Choose a service and date to see available times.</span>
+                                </div>
+                                <input type="hidden" id="rescheduleTime" name="rescheduleTime" required>
+                                <small id="rescheduleSlotHint" class="slot-hint">Select the new date and time for this appointment.</small>
+                            </div>
+
+                            <div class="reschedule-actions">
+                                <button type="submit" class="gold-button small-button"><i class="fa-solid fa-calendar-check"></i> Save change</button>
+                                <button type="button" id="cancelRescheduleBtn" class="text-button">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
                 </section>
 
                 <section class="panel visits-panel">
@@ -293,9 +338,16 @@
                         <p><i class="fa-regular fa-clock"></i> ${item.time}</p>
                         <p><i class="fa-solid fa-user-check"></i> ${item.stylist || 'Any stylist'}</p>
                     </div>
-                    <span class="status-badge ${item.status === 'Confirmed' ? 'confirmed' : 'pending'}">${item.status}</span>
+                    <div class="appointment-item-actions">
+                        <span class="status-badge ${item.status === 'Confirmed' ? 'confirmed' : 'pending'}">${item.status}</span>
+                        <button type="button" class="mini-action-button" data-reschedule-id="${item.id}"><i class="fa-solid fa-pen"></i> Reschedule</button>
+                    </div>
                 </div>
             `).join('');
+
+            document.querySelectorAll('[data-reschedule-id]').forEach((button) => {
+                button.addEventListener('click', () => openRescheduleForm(Number(button.dataset.rescheduleId)));
+            });
         }
 
         const SERVICE_TIME_SLOTS = {
@@ -313,6 +365,14 @@
         const timeSlotsContainer = document.getElementById('timeSlots');
         const slotHint = document.getElementById('slotHint');
 
+        const rescheduleIdInput = document.getElementById('rescheduleId');
+        const rescheduleService = document.getElementById('rescheduleService');
+        const rescheduleDate = document.getElementById('rescheduleDate');
+        const rescheduleTime = document.getElementById('rescheduleTime');
+        const rescheduleTimeSlots = document.getElementById('rescheduleTimeSlots');
+        const rescheduleSlotHint = document.getElementById('rescheduleSlotHint');
+        const reschedulePanel = document.getElementById('reschedulePanel');
+
         function formatSlotForValue(slotText) {
             const [time, period] = slotText.split(' ');
             const [hours, minutes] = time.split(':').map(Number);
@@ -327,14 +387,14 @@
             return day === 0 || day === 6 ? 'weekend' : 'weekday';
         }
 
-        function renderTimeSlots() {
-            const selectedService = serviceSelect.value;
-            const selectedDate = dateInput.value;
+        function renderSlotPicker({ serviceControl, dateControl, timeControl, container, hint, defaultHint }) {
+            const selectedService = serviceControl.value;
+            const selectedDate = dateControl.value;
 
             if (!selectedService || !selectedDate) {
-                timeSlotsContainer.innerHTML = '<span class="slot-empty">Choose a service and date to see available times.</span>';
-                slotHint.textContent = 'Morning and afternoon slots are offered for your selected service.';
-                timeInput.value = '';
+                container.innerHTML = '<span class="slot-empty">Choose a service and date to see available times.</span>';
+                hint.textContent = defaultHint;
+                timeControl.value = '';
                 return;
             }
 
@@ -345,40 +405,62 @@
                 : baseSlots;
 
             if (!filteredSlots.length) {
-                timeSlotsContainer.innerHTML = '<span class="slot-empty">No available slots for this service on the selected day.</span>';
-                slotHint.textContent = 'Please choose another date or service.';
-                timeInput.value = '';
+                container.innerHTML = '<span class="slot-empty">No available slots for this service on the selected day.</span>';
+                hint.textContent = 'Please choose another date or service.';
+                timeControl.value = '';
                 return;
             }
 
-            const selectedSlot = timeInput.value;
+            const selectedSlot = timeControl.value;
             const slotMarkup = filteredSlots.map((slot) => {
                 const value = formatSlotForValue(slot);
                 const isSelected = selectedSlot === value;
                 return `<button type="button" class="time-slot ${isSelected ? 'selected' : ''}" data-time="${value}" aria-pressed="${isSelected}">${slot}</button>`;
             }).join('');
 
-            timeSlotsContainer.innerHTML = slotMarkup;
-            slotHint.textContent = availability === 'weekend'
+            container.innerHTML = slotMarkup;
+            hint.textContent = availability === 'weekend'
                 ? 'Weekend appointments are available in limited morning slots.'
                 : 'Available slots are shown for your selected service and date.';
 
-            timeSlotsContainer.querySelectorAll('.time-slot').forEach((button) => {
+            container.querySelectorAll('.time-slot').forEach((button) => {
                 button.addEventListener('click', () => {
-                    timeSlotsContainer.querySelectorAll('.time-slot').forEach((slotButton) => {
+                    container.querySelectorAll('.time-slot').forEach((slotButton) => {
                         slotButton.classList.remove('selected');
                         slotButton.setAttribute('aria-pressed', 'false');
                     });
 
                     button.classList.add('selected');
                     button.setAttribute('aria-pressed', 'true');
-                    timeInput.value = button.dataset.time;
+                    timeControl.value = button.dataset.time;
                 });
             });
 
             if (!filteredSlots.some((slot) => formatSlotForValue(slot) === selectedSlot)) {
-                timeInput.value = '';
+                timeControl.value = '';
             }
+        }
+
+        function renderTimeSlots() {
+            renderSlotPicker({
+                serviceControl: serviceSelect,
+                dateControl: dateInput,
+                timeControl: timeInput,
+                container: timeSlotsContainer,
+                hint: slotHint,
+                defaultHint: 'Morning and afternoon slots are offered for your selected service.'
+            });
+        }
+
+        function renderRescheduleSlots() {
+            renderSlotPicker({
+                serviceControl: rescheduleService,
+                dateControl: rescheduleDate,
+                timeControl: rescheduleTime,
+                container: rescheduleTimeSlots,
+                hint: rescheduleSlotHint,
+                defaultHint: 'Select the new date and time for this appointment.'
+            });
         }
 
         function initBookingDate() {
@@ -391,8 +473,65 @@
             renderTimeSlots();
         }
 
+        function openRescheduleForm(appointmentId) {
+            const appointment = getAppointments().find((item) => Number(item.id) === Number(appointmentId));
+            if (!appointment) return;
+
+            rescheduleIdInput.value = appointment.id;
+            rescheduleService.value = appointment.service;
+            rescheduleDate.min = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+            rescheduleDate.value = appointment.date;
+            rescheduleTime.value = appointment.time;
+            renderRescheduleSlots();
+            reschedulePanel.classList.remove('hidden');
+            reschedulePanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function closeRescheduleForm() {
+            reschedulePanel.classList.add('hidden');
+            rescheduleForm.reset();
+            rescheduleIdInput.value = '';
+            rescheduleTime.value = '';
+            rescheduleTimeSlots.innerHTML = '<span class="slot-empty">Choose a service and date to see available times.</span>';
+            rescheduleSlotHint.textContent = 'Select the new date and time for this appointment.';
+        }
+
         serviceSelect.addEventListener('change', renderTimeSlots);
         dateInput.addEventListener('change', renderTimeSlots);
+        rescheduleService.addEventListener('change', renderRescheduleSlots);
+        rescheduleDate.addEventListener('change', renderRescheduleSlots);
+
+        document.getElementById('cancelRescheduleBtn').addEventListener('click', closeRescheduleForm);
+
+        document.getElementById('rescheduleForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const appointmentId = Number(rescheduleIdInput.value);
+            const updatedTime = rescheduleTime.value;
+
+            if (!appointmentId || !updatedTime) {
+                showToast('Please choose a valid reschedule time.');
+                return;
+            }
+
+            const appointments = getAppointments();
+            const appointmentIndex = appointments.findIndex((item) => Number(item.id) === appointmentId);
+
+            if (appointmentIndex === -1) {
+                showToast('Appointment not found.');
+                return;
+            }
+
+            appointments[appointmentIndex].service = rescheduleService.value;
+            appointments[appointmentIndex].date = rescheduleDate.value;
+            appointments[appointmentIndex].time = updatedTime;
+            appointments[appointmentIndex].status = 'Pending';
+
+            localStorage.setItem(APPOINTMENTS_KEY, JSON.stringify(appointments));
+            renderAppointments();
+            closeRescheduleForm();
+            showToast('Appointment updated successfully.');
+        });
 
         function showToast(message) {
             const toast = document.getElementById('toast');
