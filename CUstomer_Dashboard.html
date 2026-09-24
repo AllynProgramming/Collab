@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard | Merz Beauty Glow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/dashboard.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="header-inner">
+            <a href="Landing_Page.html" class="brand">
+                <img src="Asset/logo.png" alt="Merz Beauty Glow Salon and Spa" class="dashboard-logo">
+            </a>
+
+            <nav class="desktop-nav" aria-label="Main navigation">
+                <a class="active" href="CUstomer_Dashboard.html">Dashboard</a>
+                <a href="Landing_Page.html#services">Services</a>
+                <a href="Landing_Page.html#contact">Contact Us</a>
+            </nav>
+
+            <div class="header-actions" id="headerActions">
+                <a href="view_profile.html" class="profile-link hide-if-guest"><i class="fa-regular fa-circle-user"></i><span>My Profile</span></a>
+                <button type="button" class="logout-button hide-if-guest" id="logoutButton"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
+            </div>
+            <button type="button" class="menu-button" id="menuButton" aria-label="Open navigation menu" aria-expanded="false"><i class="fa-solid fa-bars-staggered"></i></button>
+        </div>
+        <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+            <a class="active" href="CUstomer_Dashboard.html"><i class="fa-solid fa-chart-pie"></i>Dashboard</a>
+            <a href="Landing_Page.html#services"><i class="fa-solid fa-spa"></i>Services</a>
+            <a href="Landing_Page.html#contact"><i class="fa-solid fa-location-dot"></i>Contact Us</a>
+            <a href="view_profile.html" class="hide-if-guest-mobile"><i class="fa-regular fa-circle-user"></i>My Profile</a>
+            <button type="button" id="mobileLogoutButton" class="hide-if-guest-mobile"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        </nav>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <div class="breadcrumb"><a href="Landing_Page.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>Customer Dashboard</span></div>
+
+            <section class="welcome-row">
+                <div>
+                    <span class="eyebrow"><i class="fa-solid fa-sparkles"></i> Your beauty ritual</span>
+                    <h1>Good morning, <em id="customerName">Guest</em>.</h1>
+                    <p>Book your next spa session and keep your glow routine easy, polished, and stress-free.</p>
+                </div>
+                <a href="#book" class="gold-button"><i class="fa-solid fa-plus"></i> Book a session</a>
+            </section>
+
+            <section class="stats-grid" aria-label="Account summary">
+                <article class="stat-card">
+                    <span class="stat-icon green"><i class="fa-solid fa-calendar-check"></i></span>
+                    <div>
+                        <small>Next booking</small>
+                        <strong id="nextBookingDate">--</strong>
+                        <p id="nextBookingTime">Select a date on the booking form</p>
+                    </div>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon gold"><i class="fa-solid fa-heart"></i></span>
+                    <div>
+                        <small>Appointments</small>
+                        <strong id="appointmentsCount">0</strong>
+                        <p>Upcoming sessions in your schedule</p>
+                    </div>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-icon mint"><i class="fa-solid fa-spa"></i></span>
+                    <div>
+                        <small>Favorite service</small>
+                        <strong id="favoriteService">-</strong>
+                        <p>Based on your selected bookings</p>
+                    </div>
+                </article>
+            </section>
+
+            <div class="dashboard-grid">
+                <section class="panel booking-panel" id="book">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="section-kicker">Book your care</span>
+                            <h2>Schedule an appointment</h2>
+                        </div>
+                    </div>
+
+                    <form id="bookingForm" class="booking-form">
+                        <div class="field-group">
+                            <label for="service">Service</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service</option>
+                                <option value="Facial & Skincare">Facial &amp; Skincare</option>
+                                <option value="Hair Styling & Care">Hair Styling &amp; Care</option>
+                                <option value="Body Spa & Massage">Body Spa &amp; Massage</option>
+                                <option value="Nail Art & Care">Nail Art &amp; Care</option>
+                                <option value="Waxing & Threading">Waxing &amp; Threading</option>
+                                <option value="Hand & Foot Care">Hand &amp; Foot Care</option>
+                            </select>
+                        </div>
+
+                        <div class="field-row">
+                            <div class="field-group">
+                                <label for="date">Preferred date</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="field-group">
+                                <label for="time">Preferred time</label>
+                                <input type="time" id="time" name="time" required>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="stylist">Preferred stylist</label>
+                            <select id="stylist" name="stylist">
+                                <option value="Any stylist">Any stylist</option>
+                                <option value="Merz Beauty Glow Team">Merz Beauty Glow Team</option>
+                                <option value="Skin Specialist">Skin Specialist</option>
+                                <option value="Hair Specialist">Hair Specialist</option>
+                                <option value="Massage Therapist">Massage Therapist</option>
+                            </select>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="notes">Notes or skin goals</label>
+                            <textarea id="notes" name="notes" rows="4" placeholder="Tell us your preferred treatment or concerns..."></textarea>
+                        </div>
+
+                        <button type="submit" class="gold-button full-width"><i class="fa-solid fa-calendar-check"></i> Confirm appointment</button>
+                    </form>
+                </section>
+
+                <section class="panel appointments-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="section-kicker">Upcoming</span>
+                            <h2>Your appointments</h2>
+                        </div>
+                        <button type="button" class="text-button" id="clearAppointmentsBtn">Clear all</button>
+                    </div>
+
+                    <div id="appointmentsList" class="appointments-list" aria-live="polite"></div>
+                </section>
+
+                <section class="panel visits-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="section-kicker">Popular care</span>
+                            <h2>Recommended for you</h2>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-list">
+                        <div class="recommendation-item">
+                            <span class="recommendation-icon"><i class="fa-solid fa-droplet"></i></span>
+                            <div>
+                                <strong>Hydra Glow Facial</strong>
+                                <small>Brightening treatment • ₱1,200</small>
+                            </div>
+                        </div>
+                        <div class="recommendation-item">
+                            <span class="recommendation-icon"><i class="fa-solid fa-wand-sparkles"></i></span>
+                            <div>
+                                <strong>Hair Color Renewal</strong>
+                                <small>Salon color refresh • ₱500</small>
+                            </div>
+                        </div>
+                        <div class="recommendation-item">
+                            <span class="recommendation-icon"><i class="fa-solid fa-hand-sparkles"></i></span>
+                            <div>
+                                <strong>Gel Manicure + Pedicure</strong>
+                                <small>Luxury hand &amp; foot care • ₱550</small>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        const SESSION_KEY = 'merzBeautySession';
+        const APPOINTMENTS_KEY = 'merzBeautyAppointments';
+
+        const session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+        const firstName = session && session.firstName ? session.firstName : 'Guest';
+
+        function updateHeaderVisibility() {
+            const isLoggedIn = Boolean(session && session.firstName);
+            const profileLinks = document.querySelectorAll('.hide-if-guest, .hide-if-guest-mobile');
+            profileLinks.forEach((element) => {
+                element.style.display = isLoggedIn ? 'inline-flex' : 'none';
+            });
+
+            if (document.getElementById('headerActions')) {
+                const headerActions = document.getElementById('headerActions');
+                headerActions.style.display = isLoggedIn ? 'flex' : 'none';
+            }
+        }
+
+        document.getElementById('customerName').textContent = firstName;
+
+        updateHeaderVisibility();
+
+        const defaultAppointments = [
+            {
+                id: 1,
+                service: 'Facial & Skincare',
+                date: new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0],
+                time: '10:30',
+                stylist: 'Skin Specialist',
+                notes: 'Hydration and glow boost',
+                status: 'Confirmed'
+            },
+            {
+                id: 2,
+                service: 'Hair Styling & Care',
+                date: new Date(Date.now() + 8 * 86400000).toISOString().split('T')[0],
+                time: '14:00',
+                stylist: 'Hair Specialist',
+                notes: 'Hair treatment and soft styling',
+                status: 'Pending'
+            }
+        ];
+
+        function getAppointments() {
+            const appointments = JSON.parse(localStorage.getItem(APPOINTMENTS_KEY) || 'null');
+            if (!appointments || appointments.length === 0) {
+                localStorage.setItem(APPOINTMENTS_KEY, JSON.stringify(defaultAppointments));
+                return [...defaultAppointments];
+            }
+            return appointments;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(`${dateString}T00:00:00`);
+            return new Intl.DateTimeFormat('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            }).format(date);
+        }
+
+        function formatDisplayDate(dateString) {
+            const date = new Date(`${dateString}T00:00:00`);
+            return new Intl.DateTimeFormat('en-US', {
+                month: 'short',
+                day: 'numeric'
+            }).format(date);
+        }
+
+        function renderAppointments() {
+            const appointments = getAppointments().sort((a, b) => new Date(a.date) - new Date(b.date));
+            const container = document.getElementById('appointmentsList');
+
+            if (!appointments.length) {
+                container.innerHTML = '<div class="empty-state">No appointments yet. Book your next beauty session.</div>';
+                document.getElementById('appointmentsCount').textContent = '0';
+                document.getElementById('nextBookingDate').textContent = '--';
+                document.getElementById('nextBookingTime').textContent = 'Select a date on the booking form';
+                document.getElementById('favoriteService').textContent = '-';
+                return;
+            }
+
+            const serviceCounts = {};
+            appointments.forEach(item => {
+                serviceCounts[item.service] = (serviceCounts[item.service] || 0) + 1;
+            });
+            const favoriteService = Object.entries(serviceCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '-';
+
+            document.getElementById('favoriteService').textContent = favoriteService;
+            document.getElementById('appointmentsCount').textContent = String(appointments.length);
+
+            const next = appointments[0];
+            document.getElementById('nextBookingDate').textContent = formatDisplayDate(next.date);
+            document.getElementById('nextBookingTime').textContent = `${next.time} • ${next.service}`;
+
+            container.innerHTML = appointments.slice(0, 4).map(item => `
+                <div class="appointment-item">
+                    <div class="appointment-date-box">
+                        <strong>${new Date(`${item.date}T00:00:00`).getDate()}</strong>
+                        <span>${new Intl.DateTimeFormat('en-US', { month: 'short' }).format(new Date(`${item.date}T00:00:00`))}</span>
+                    </div>
+                    <div class="appointment-meta">
+                        <h3>${item.service}</h3>
+                        <p><i class="fa-regular fa-clock"></i> ${item.time}</p>
+                        <p><i class="fa-solid fa-user-check"></i> ${item.stylist || 'Any stylist'}</p>
+                    </div>
+                    <span class="status-badge ${item.status === 'Confirmed' ? 'confirmed' : 'pending'}">${item.status}</span>
+                </div>
+            `).join('');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2600);
+        }
+
+        document.getElementById('bookingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const appointment = {
+                id: Date.now(),
+                service: formData.get('service'),
+                date: formData.get('date'),
+                time: formData.get('time'),
+                stylist: formData.get('stylist') || 'Any stylist',
+                notes: formData.get('notes') || 'No special notes',
+                status: 'Pending'
+            };
+
+            const appointments = getAppointments();
+            appointments.push(appointment);
+            localStorage.setItem(APPOINTMENTS_KEY, JSON.stringify(appointments));
+            renderAppointments();
+            this.reset();
+            showToast('Appointment booked successfully.');
+        });
+
+        document.getElementById('clearAppointmentsBtn').addEventListener('click', () => {
+            localStorage.removeItem(APPOINTMENTS_KEY);
+            renderAppointments();
+            showToast('Appointment list cleared.');
+        });
+
+        const menuButton = document.getElementById('menuButton');
+        const mobileNav = document.getElementById('mobileNav');
+        menuButton.addEventListener('click', () => {
+            const isOpen = mobileNav.classList.toggle('open');
+            menuButton.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            localStorage.removeItem(SESSION_KEY);
+            window.location.href = 'Landing_Page.html';
+        });
+
+        document.getElementById('mobileLogoutButton').addEventListener('click', () => {
+            localStorage.removeItem(SESSION_KEY);
+            window.location.href = 'Landing_Page.html';
+        });
+
+        renderAppointments();
+    </script>
+</body>
+</html>

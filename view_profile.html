@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | Merz Beauty Glow</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Profile CSS -->
+    <link rel="stylesheet" href="CSS/style.css">
+
+    <style>
+        /* =====================================================
+           PROFILE PICTURE
+           Does not change the existing layout.
+        ====================================================== */
+
+        .profile-avatar {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-avatar-initials {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-picture-badge {
+            position: absolute;
+            right: -2px;
+            bottom: -2px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #D4AF37;
+            color: #1E5631;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border: 3px solid #1E5631;
+        }
+    </style>
+</head>
+
+<body class="profile-page">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+    <header class="profile-header">
+
+        <div class="profile-header-inner">
+
+            <!-- BRAND -->
+            <a href="Landing_Page.html" class="profile-brand">
+
+                <img src="Asset/logo.png" alt="Merz Beauty Glow Salon and Spa" class="profile-logo">
+
+            </a>
+
+
+            <!-- DESKTOP NAVIGATION -->
+            <nav class="profile-nav">
+
+                <a href="Landing_Page.html">
+                    Home
+                </a>
+
+                <a href="Landing_Page.html#services">
+                    Services
+                </a>
+
+                <a href="Landing_Page.html#contact">
+                    Contact Us
+                </a>
+
+            </nav>
+
+
+            <!-- CUSTOMER ACTIONS -->
+            <div class="profile-header-actions">
+
+                <a href="CUstomer_Dashboard.html"
+                    class="profile-header-profile active">
+
+                    <i class="fa-solid fa-user"></i>
+                    <span>Dashboard</span>
+
+                </a>
+
+                <button type="button"
+                    class="profile-header-logout"
+                    onclick="logout()">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+
+                </button>
+
+            </div>
+
+
+            <!-- MOBILE MENU BUTTON -->
+            <button
+                type="button"
+                id="profileMobileMenuBtn"
+                class="profile-mobile-menu-btn"
+                aria-label="Open navigation menu">
+
+                <i class="fa-solid fa-bars-staggered"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- MOBILE MENU -->
+        <div id="profileMobileMenu" class="profile-mobile-menu">
+
+            <a href="Landing_Page.html">
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <a href="Landing_Page.html#services">
+                <i class="fa-solid fa-spa"></i>
+                Services
+            </a>
+
+            <a href="Landing_Page.html#contact">
+                <i class="fa-solid fa-location-dot"></i>
+                Contact Us
+            </a>
+
+            <div class="profile-mobile-divider"></div>
+
+            <a href="view_profile.html" class="active">
+                <i class="fa-solid fa-user"></i>
+                My Profile
+            </a>
+
+            <button type="button" onclick="logout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN PROFILE CONTENT
+    ====================================================== -->
+    <main class="profile-main">
+
+        <div class="profile-container">
+
+            <!-- BREADCRUMB -->
+            <div class="profile-breadcrumb">
+
+                <a href="Landing_Page.html">
+                    Home
+                </a>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+                <span>My Profile</span>
+
+            </div>
+
+
+            <!-- PAGE INTRO -->
+            <div class="profile-page-intro">
+
+                <div>
+
+                    <h1>
+                        My Profile
+                    </h1>
+
+                    <p>
+                        View and manage your personal account information.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUCCESS MESSAGE -->
+            <div id="successMessage"
+                class="profile-alert profile-alert-success"
+                role="status"
+                aria-live="polite">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <div>
+                    <strong>Profile Updated</strong>
+                    <span>Your account information has been successfully updated.</span>
+                </div>
+
+            </div>
+
+
+            <!-- PROFILE CARD -->
+            <section class="profile-card">
+
+                <!-- PROFILE HEADER -->
+                <div class="profile-card-header">
+
+                    <div class="profile-user">
+
+                        <!-- PROFILE AVATAR -->
+                        <div class="profile-avatar" id="profileAvatar">
+
+                            <span
+                                id="initials"
+                                class="profile-avatar-initials">
+                                --
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-user-details">
+
+                            <span class="profile-user-label">
+                                CUSTOMER ACCOUNT
+                            </span>
+
+                            <h2 id="displayName">
+                                Customer Name
+                            </h2>
+
+                            <span class="profile-status">
+                                <span class="profile-status-dot"></span>
+                                Active Account
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE CONTENT -->
+                <div class="profile-card-content">
+
+                    <div class="profile-section-header">
+
+                        <div>
+
+                            <h3>
+                                Account Details
+                            </h3>
+
+                            <p>
+                                Your registered personal information
+                            </p>
+
+                        </div>
+
+                        <a href="update_profile.html"
+                            class="profile-edit-btn">
+
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Edit Profile
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- ACCOUNT INFORMATION -->
+                    <dl class="profile-info-grid">
+
+                        <!-- FIRST NAME -->
+                        <div class="profile-info-box">
+
+                            <dt>
+                                <i class="fa-solid fa-user"></i>
+                                First Name
+                            </dt>
+
+                            <dd id="displayFirstName">
+                                —
+                            </dd>
+
+                        </div>
+
+
+                        <!-- LAST NAME -->
+                        <div class="profile-info-box">
+
+                            <dt>
+                                <i class="fa-solid fa-user"></i>
+                                Last Name
+                            </dt>
+
+                            <dd id="displayLastName">
+                                —
+                            </dd>
+
+                        </div>
+
+
+                        <!-- MOBILE -->
+                        <div class="profile-info-box">
+
+                            <dt>
+                                <i class="fa-solid fa-mobile-screen-button"></i>
+                                Mobile Number
+                            </dt>
+
+                            <dd id="displayMobile">
+                                —
+                            </dd>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+                        <div class="profile-info-box">
+
+                            <dt>
+                                <i class="fa-solid fa-envelope"></i>
+                                Email Address
+                            </dt>
+
+                            <dd id="displayEmail">
+                                —
+                            </dd>
+
+                        </div>
+
+                    </dl>
+
+
+                    <!-- PROFILE NOTICE -->
+                    <div class="profile-notice">
+
+                        <div class="profile-notice-icon">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Keep your information updated
+                            </strong>
+
+                            <p>
+                                Make sure your mobile number and email address
+                                are current so the salon can contact you
+                                regarding your appointments and services.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+    <footer class="profile-footer" id="contact">
+
+        <div class="profile-footer-container">
+
+            <div class="profile-footer-grid">
+
+                <!-- BRAND -->
+                <div class="profile-footer-brand">
+
+                    <div class="profile-footer-logo">
+
+                        <div class="profile-footer-icon">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+
+                        <span>
+                            MERZ BEAUTY GLOW
+                        </span>
+
+                    </div>
+
+                    <p>
+                        Malaybalay City's dedicated sanctuary for
+                        hair, skin, and spa wellness. Bringing out
+                        your authentic glow with botanical care.
+                    </p>
+
+                </div>
+
+
+                <!-- LOCATION -->
+                <div class="profile-footer-column">
+
+                    <h4>Location</h4>
+
+                    <p>
+                        <i class="fa-solid fa-location-dot"></i>
+                        Malaybalay City, Bukidnon, Philippines
+                    </p>
+
+                    <p>
+                        <i class="fa-solid fa-phone"></i>
+                        +63 917 000 0000
+                    </p>
+
+                </div>
+
+
+                <!-- HOURS -->
+                <div class="profile-footer-column">
+
+                    <h4>Operating Hours</h4>
+
+                    <p>
+                        Monday – Sunday
+                    </p>
+
+                    <strong>
+                        9:00 AM – 7:00 PM
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER BOTTOM -->
+            <div class="profile-footer-bottom">
+
+                <p>
+                    © 2026 Merz Beauty Glow Salon & Spa.
+                    All rights reserved.
+                </p>
+
+                <div class="profile-socials">
+
+                    <a href="#" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+
+                    <a href="#" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+    <script>
+
+        const ACCOUNTS_KEY = 'merzBeautyAccounts';
+        const SESSION_KEY = 'merzBeautySession';
+
+
+        /* =========================================
+           GET CURRENT LOGGED-IN USER
+        ========================================= */
+        function getCurrentUser() {
+
+            const storedSession =
+                localStorage.getItem(SESSION_KEY);
+
+            if (!storedSession) {
+                return null;
+            }
+
+            try {
+
+                return JSON.parse(storedSession);
+
+            } catch (error) {
+
+                console.error(
+                    'Unable to read customer session:',
+                    error
+                );
+
+                return null;
+            }
+        }
+
+
+        /* =========================================
+           LOGOUT
+        ========================================= */
+        function logout() {
+
+            localStorage.removeItem(SESSION_KEY);
+
+            window.location.href = 'Landing_Page.html';
+
+        }
+
+
+        /* =========================================
+           LOAD PROFILE
+        ========================================= */
+        function initializeProfile() {
+
+            const user = getCurrentUser();
+
+            if (!user) {
+
+                window.location.href = 'Landing_Page.html';
+
+                return;
+            }
+
+
+            const firstName =
+                user.firstName || '';
+
+            const lastName =
+                user.lastName || '';
+
+            const fullName =
+                `${firstName} ${lastName}`.trim();
+
+
+            /* NAME */
+            document.getElementById('displayName').textContent =
+                fullName || 'Customer';
+
+
+            /* FIRST NAME */
+            document.getElementById('displayFirstName').textContent =
+                firstName || '—';
+
+
+            /* LAST NAME */
+            document.getElementById('displayLastName').textContent =
+                lastName || '—';
+
+
+            /* MOBILE */
+            document.getElementById('displayMobile').textContent =
+                user.mobile || '—';
+
+
+            /* EMAIL */
+            document.getElementById('displayEmail').textContent =
+                user.email || '—';
+
+
+            /* =====================================
+               PROFILE PICTURE
+            ===================================== */
+
+            const avatar =
+                document.getElementById('profileAvatar');
+
+            const initials =
+                document.getElementById('initials');
+
+
+            if (user.profilePicture) {
+
+                avatar.innerHTML = `
+                    <img
+                        src="${user.profilePicture}"
+                        alt="Customer profile picture">
+                `;
+
+            } else {
+
+                const userInitials =
+                    `${firstName.charAt(0)}${lastName.charAt(0)}`
+                    .toUpperCase();
+
+                initials.textContent =
+                    userInitials || 'CU';
+
+            }
+
+
+            /* =====================================
+               PROFILE UPDATED MESSAGE
+            ===================================== */
+
+            if (
+                sessionStorage.getItem('profileUpdated')
+                === 'true'
+            ) {
+
+                const successMessage =
+                    document.getElementById('successMessage');
+
+                if (successMessage) {
+
+                    successMessage.classList.add('show');
+
+                    sessionStorage.removeItem(
+                        'profileUpdated'
+                    );
+
+                    setTimeout(() => {
+
+                        successMessage.classList.remove('show');
+
+                    }, 4500);
+
+                }
+
+            }
+
+        }
+
+
+        /* =========================================
+           MOBILE MENU
+        ========================================= */
+        function initializeMobileMenu() {
+
+            const menuButton =
+                document.getElementById(
+                    'profileMobileMenuBtn'
+                );
+
+            const menu =
+                document.getElementById(
+                    'profileMobileMenu'
+                );
+
+
+            if (!menuButton || !menu) {
+                return;
+            }
+
+
+            menuButton.addEventListener(
+                'click',
+                () => {
+
+                    menu.classList.toggle('show');
+
+                    const icon =
+                        menuButton.querySelector('i');
+
+
+                    if (
+                        menu.classList.contains('show')
+                    ) {
+
+                        icon.className =
+                            'fa-solid fa-xmark';
+
+                    } else {
+
+                        icon.className =
+                            'fa-solid fa-bars-staggered';
+
+                    }
+
+                }
+            );
+
+
+            menu.querySelectorAll('a').forEach(
+                link => {
+
+                    link.addEventListener(
+                        'click',
+                        () => {
+
+                            menu.classList.remove(
+                                'show'
+                            );
+
+                            const icon =
+                                menuButton.querySelector(
+                                    'i'
+                                );
+
+                            if (icon) {
+
+                                icon.className =
+                                    'fa-solid fa-bars-staggered';
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           PAGE INITIALIZATION
+        ========================================= */
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                initializeProfile();
+
+                initializeMobileMenu();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

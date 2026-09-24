@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile | Merz Beauty Glow</title>
+
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap"
+        rel="stylesheet">
+
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <!-- PROFILE CSS -->
+    <link rel="stylesheet"
+        href="CSS/style.css">
+
+
+    <!-- =====================================================
+         PROFILE PICTURE CSS
+    ====================================================== -->
+    <style>
+
+        .profile-avatar {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        .profile-avatar-initials {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /*
+         * Hidden file input
+         */
+        #profilePicture {
+            display: none;
+        }
+
+
+        /*
+         * Camera icon shown on profile picture
+         */
+        .profile-avatar::after {
+            content: "\f030";
+
+            position: absolute;
+
+            right: 4px;
+            bottom: 4px;
+
+            width: 28px;
+            height: 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #D4AF37;
+            color: #ffffff;
+
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+
+            font-size: 12px;
+
+            border: 2px solid #ffffff;
+
+            box-shadow:
+                0 3px 8px rgba(0, 0, 0, 0.20);
+
+            pointer-events: none;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        /*
+         * Hover effect
+         */
+        .profile-avatar:hover::after {
+            transform: scale(1.08);
+            background: #B8860B;
+        }
+
+
+        /*
+         * Slight hover effect on picture
+         */
+        .profile-avatar:hover {
+            opacity: 0.96;
+        }
+
+
+        /*
+         * Mobile
+         */
+        @media (max-width: 768px) {
+
+            .profile-avatar::after {
+                width: 26px;
+                height: 26px;
+                font-size: 11px;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .profile-avatar::after {
+                width: 24px;
+                height: 24px;
+                font-size: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="profile-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="profile-header">
+
+        <div class="profile-header-inner">
+
+
+            <!-- BRAND -->
+
+            <a href="Landing_Page.html"
+                class="profile-brand">
+
+                <img src="Asset/logo.png" alt="Merz Beauty Glow Salon and Spa" class="profile-logo">
+
+            </a>
+
+
+            <!-- DESKTOP NAVIGATION -->
+
+            <nav class="profile-nav">
+
+                <a href="Landing_Page.html">
+                    Home
+                </a>
+
+                <a href="Landing_Page.html#services">
+                    Services
+                </a>
+
+                <a href="Landing_Page.html#contact">
+                    Contact Us
+                </a>
+
+            </nav>
+
+
+            <!-- CUSTOMER ACTIONS -->
+
+            <div class="profile-header-actions">
+
+                <a href="view_profile.html"
+                    class="profile-header-profile active">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <span>
+                        Profile
+                    </span>
+
+                </a>
+
+
+                <button
+                    type="button"
+                    class="profile-header-logout"
+                    onclick="logout()">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>
+                        Logout
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button
+                type="button"
+                id="profileMobileMenuBtn"
+                class="profile-mobile-menu-btn"
+                aria-label="Open navigation menu">
+
+                <i class="fa-solid fa-bars-staggered"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- MOBILE MENU -->
+
+        <div
+            id="profileMobileMenu"
+            class="profile-mobile-menu">
+
+            <a href="Landing_Page.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                Home
+
+            </a>
+
+
+            <a href="Landing_Page.html#services">
+
+                <i class="fa-solid fa-spa"></i>
+
+                Services
+
+            </a>
+
+
+            <a href="Landing_Page.html#contact">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Contact Us
+
+            </a>
+
+
+            <div class="profile-mobile-divider"></div>
+
+
+            <a
+                href="view_profile.html"
+                class="active">
+
+                <i class="fa-solid fa-user"></i>
+
+                My Profile
+
+            </a>
+
+
+            <button
+                type="button"
+                onclick="logout()">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="profile-main">
+
+        <div class="profile-container">
+
+
+            <!-- BREADCRUMB -->
+
+            <div class="profile-breadcrumb">
+
+                <a href="Landing_Page.html">
+                    Home
+                </a>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+                <a href="view_profile.html">
+                    My Profile
+                </a>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+                <span>
+                    Edit Profile
+                </span>
+
+            </div>
+
+
+
+            <!-- PAGE INTRO -->
+
+            <div class="profile-page-intro">
+
+                <div>
+
+                    <h1>
+                        Edit Profile
+                    </h1>
+
+                    <p>
+                        Update your personal information below.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 UPDATE CARD
+            ================================================== -->
+
+            <section class="profile-card update-profile-card">
+
+
+                <!-- =================================================
+                     CARD HEADER
+                ================================================== -->
+
+                <div class="profile-card-header">
+
+                    <div class="profile-user">
+
+
+                        <!-- =================================================
+                             PROFILE AVATAR
+                             CLICK THIS PICTURE TO CHANGE IT
+                        ================================================== -->
+
+                        <div
+                            class="profile-avatar"
+                            id="profileAvatar"
+                            title="Click to change profile picture">
+
+
+                            <!-- INITIALS -->
+
+                            <span
+                                id="initials"
+                                class="profile-avatar-initials">
+
+                                --
+
+                            </span>
+
+
+                            <!-- PROFILE IMAGE -->
+
+                            <img
+                                id="profilePreview"
+                                src=""
+                                alt="Customer profile picture"
+                                style="display: none;">
+
+
+                            <!-- HIDDEN FILE INPUT -->
+
+                            <input
+                                type="file"
+                                id="profilePicture"
+                                accept="image/jpeg,image/png,image/webp">
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             USER DETAILS
+                        ================================================== -->
+
+                        <div class="profile-user-details">
+
+
+                            <span class="profile-user-label">
+                                CUSTOMER ACCOUNT
+                            </span>
+
+
+                            <h2 id="displayName">
+                                Customer Name
+                            </h2>
+
+
+                            <span class="profile-status">
+
+                                <span class="profile-status-dot"></span>
+
+                                Active Account
+
+                            </span>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FORM CONTENT
+                ================================================== -->
+
+                <div class="profile-card-content">
+
+
+                    <!-- SECTION HEADER -->
+
+                    <div class="profile-section-header">
+
+                        <div>
+
+                            <h3>
+                                Personal Information
+                            </h3>
+
+                            <p>
+                                Keep your account details accurate and up to date.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- GENERAL ERROR -->
+
+                    <div
+                        id="generalError"
+                        class="profile-alert profile-alert-error"
+                        role="alert">
+
+                        <i class="fa-solid fa-circle-exclamation"></i>
+
+                        <span id="generalErrorText">
+                            Please correct the highlighted fields.
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         FORM
+                    ================================================== -->
+
+                    <form
+                        id="profileForm"
+                        class="profile-form"
+                        novalidate>
+
+
+                        <!-- FIRST NAME -->
+
+                        <div class="profile-form-group">
+
+                            <label for="firstName">
+
+                                First Name
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-user input-icon"></i>
+
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    name="firstName"
+                                    placeholder="Enter your first name"
+                                    autocomplete="given-name"
+                                    required>
+
+                                <i class="validation-icon"></i>
+
+                            </div>
+
+
+                            <small
+                                id="firstNameError"
+                                class="field-error">
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- LAST NAME -->
+
+                        <div class="profile-form-group">
+
+                            <label for="lastName">
+
+                                Last Name
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-user input-icon"></i>
+
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    name="lastName"
+                                    placeholder="Enter your last name"
+                                    autocomplete="family-name"
+                                    required>
+
+                                <i class="validation-icon"></i>
+
+                            </div>
+
+
+                            <small
+                                id="lastNameError"
+                                class="field-error">
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- MOBILE -->
+
+                        <div class="profile-form-group">
+
+                            <label for="mobile">
+
+                                Mobile Number
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-mobile-screen-button input-icon"></i>
+
+                                <input
+                                    type="tel"
+                                    id="mobile"
+                                    name="mobile"
+                                    placeholder="09XXXXXXXXX"
+                                    maxlength="11"
+                                    inputmode="numeric"
+                                    autocomplete="tel"
+                                    required>
+
+                                <i class="validation-icon"></i>
+
+                            </div>
+
+
+                            <small class="form-helper">
+
+                                Enter an 11-digit Philippine mobile number.
+
+                            </small>
+
+
+                            <small
+                                id="mobileError"
+                                class="field-error">
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- EMAIL -->
+
+                        <div class="profile-form-group">
+
+                            <label for="email">
+
+                                Email Address
+
+                                <span class="required-mark">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-envelope input-icon"></i>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="example@email.com"
+                                    autocomplete="email"
+                                    required>
+
+                                <i class="validation-icon"></i>
+
+                            </div>
+
+
+                            <small
+                                id="emailError"
+                                class="field-error">
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             FORM ACTIONS
+                        ================================================== -->
+
+                        <div class="profile-form-actions">
+
+
+                            <!-- CANCEL -->
+
+                            <a
+                                href="./view_profile.html"
+                                class="profile-cancel-btn">
+
+                                <i class="fa-solid fa-arrow-left"></i>
+
+                                Cancel
+
+                            </a>
+
+
+                            <!-- SAVE -->
+
+                            <button
+                                type="submit"
+                                id="saveProfileBtn"
+                                class="profile-save-btn">
+
+                                <i class="fa-solid fa-floppy-disk"></i>
+
+                                <span>
+                                    Save Changes
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer
+        class="profile-footer"
+        id="contact">
+
+        <div class="profile-footer-container">
+
+            <div class="profile-footer-grid">
+
+
+                <!-- BRAND -->
+
+                <div class="profile-footer-brand">
+
+                    <div class="profile-footer-logo">
+
+                        <div class="profile-footer-icon">
+
+                            <i class="fa-solid fa-leaf"></i>
+
+                        </div>
+
+                        <span>
+                            MERZ BEAUTY GLOW
+                        </span>
+
+                    </div>
+
+
+                    <p>
+
+                        Malaybalay City's dedicated sanctuary for
+                        hair, skin, and spa wellness. Bringing out
+                        your authentic glow with botanical care.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- LOCATION -->
+
+                <div class="profile-footer-column">
+
+                    <h4>
+                        Location
+                    </h4>
+
+
+                    <p>
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        Malaybalay City, Bukidnon, Philippines
+
+                    </p>
+
+
+                    <p>
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        +63 917 000 0000
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- HOURS -->
+
+                <div class="profile-footer-column">
+
+                    <h4>
+                        Operating Hours
+                    </h4>
+
+
+                    <p>
+                        Monday – Sunday
+                    </p>
+
+
+                    <strong>
+                        9:00 AM – 7:00 PM
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FOOTER BOTTOM -->
+
+            <div class="profile-footer-bottom">
+
+                <p>
+
+                    © 2026 Merz Beauty Glow Salon & Spa.
+                    All rights reserved.
+
+                </p>
+
+
+                <div class="profile-socials">
+
+                    <a
+                        href="#"
+                        aria-label="Facebook">
+
+                        <i class="fa-brands fa-facebook"></i>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        aria-label="Instagram">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        const ACCOUNTS_KEY = 'merzBeautyAccounts';
+        const SESSION_KEY = 'merzBeautySession';
+
+        let currentUser = null;
+
+
+        /* =====================================================
+           GET CURRENT USER
+        ====================================================== */
+
+        function getCurrentUser() {
+
+            const storedUser =
+                localStorage.getItem(SESSION_KEY);
+
+            if (!storedUser) {
+                return null;
+            }
+
+            try {
+
+                return JSON.parse(storedUser);
+
+            } catch (error) {
+
+                console.error(
+                    'Invalid customer session:',
+                    error
+                );
+
+                return null;
+            }
+        }
+
+
+
+        /* =====================================================
+           LOGOUT
+        ====================================================== */
+
+        function logout() {
+
+            localStorage.removeItem(SESSION_KEY);
+
+            window.location.href =
+                'Landing_Page.html';
+        }
+
+
+
+        /* =====================================================
+           FIELD STATE
+        ====================================================== */
+
+        function setFieldState(
+            input,
+            errorElement,
+            message
+        ) {
+
+            const wrapper =
+                input.closest('.input-wrapper');
+
+            const icon =
+                wrapper.querySelector('.validation-icon');
+
+
+            input.classList.remove(
+                'input-error',
+                'input-success'
+            );
+
+
+            icon.className =
+                'validation-icon';
+
+
+            errorElement.textContent = '';
+
+
+            if (message) {
+
+                input.classList.add(
+                    'input-error'
+                );
+
+                icon.classList.add(
+                    'error',
+                    'fa-solid',
+                    'fa-circle-exclamation'
+                );
+
+                errorElement.textContent =
+                    message;
+
+                return false;
+            }
+
+
+            input.classList.add(
+                'input-success'
+            );
+
+            icon.classList.add(
+                'success',
+                'fa-solid',
+                'fa-circle-check'
+            );
+
+            return true;
+        }
+
+
+
+        /* =====================================================
+           FIRST NAME VALIDATION
+        ====================================================== */
+
+        function validateFirstName() {
+
+            const input =
+                document.getElementById('firstName');
+
+            const error =
+                document.getElementById('firstNameError');
+
+            const value =
+                input.value.trim();
+
+
+            if (!value) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'First name is required.'
+                );
+            }
+
+
+            /*
+             * Letters and spaces only
+             */
+            if (!/^[A-Za-z]+(?: [A-Za-z]+)*$/.test(value)) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'Use letters and spaces only.'
+                );
+            }
+
+
+            return setFieldState(
+                input,
+                error,
+                ''
+            );
+        }
+
+
+
+        /* =====================================================
+           LAST NAME VALIDATION
+        ====================================================== */
+
+        function validateLastName() {
+
+            const input =
+                document.getElementById('lastName');
+
+            const error =
+                document.getElementById('lastNameError');
+
+            const value =
+                input.value.trim();
+
+
+            if (!value) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'Last name is required.'
+                );
+            }
+
+
+            /*
+             * Letters and spaces only
+             */
+            if (!/^[A-Za-z]+(?: [A-Za-z]+)*$/.test(value)) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'Use letters and spaces only.'
+                );
+            }
+
+
+            return setFieldState(
+                input,
+                error,
+                ''
+            );
+        }
+
+
+
+        /* =====================================================
+           MOBILE VALIDATION
+        ====================================================== */
+
+        function validateMobile() {
+
+            const input =
+                document.getElementById('mobile');
+
+            const error =
+                document.getElementById('mobileError');
+
+            const value =
+                input.value.trim();
+
+
+            if (!value) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'Mobile number is required.'
+                );
+            }
+
+
+            if (!/^09\d{9}$/.test(value)) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'Enter a valid 11-digit Philippine mobile number.'
+                );
+            }
+
+
+            const accounts =
+                JSON.parse(
+                    localStorage.getItem(
+                        ACCOUNTS_KEY
+                    )
+                ) || [];
+
+
+            const duplicate =
+                accounts.some(account => {
+
+                    if (!account.mobile) {
+                        return false;
+                    }
+
+                    if (!currentUser) {
+                        return false;
+                    }
+
+                    const sameMobile =
+                        account.mobile === value;
+
+                    const differentAccount =
+                        !account.email ||
+                        !currentUser.email ||
+                        account.email.toLowerCase() !==
+                        currentUser.email.toLowerCase();
+
+                    return (
+                        sameMobile &&
+                        differentAccount
+                    );
+
+                });
+
+
+            if (duplicate) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'This mobile number is already registered.'
+                );
+            }
+
+
+            return setFieldState(
+                input,
+                error,
+                ''
+            );
+        }
+
+
+
+        /* =====================================================
+           EMAIL VALIDATION
+        ====================================================== */
+
+        function validateEmail() {
+
+            const input =
+                document.getElementById('email');
+
+            const error =
+                document.getElementById('emailError');
+
+            const value =
+                input.value.trim();
+
+
+            if (!value) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'Email address is required.'
+                );
+            }
+
+
+            /*
+             * Email validation
+             */
+            const emailPattern =
+                /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*\.[A-Za-z]{3,}$/;
+
+
+            if (
+                !emailPattern.test(value) ||
+                value.includes('..') ||
+                value.includes('.@') ||
+                value.includes('@.')
+            ) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'Enter a valid email address.'
+                );
+            }
+
+
+            const accounts =
+                JSON.parse(
+                    localStorage.getItem(
+                        ACCOUNTS_KEY
+                    )
+                ) || [];
+
+
+            const duplicate =
+                accounts.some(account => {
+
+                    if (!account.email) {
+                        return false;
+                    }
+
+                    if (!currentUser) {
+                        return false;
+                    }
+
+                    return (
+                        account.email.toLowerCase() ===
+                        value.toLowerCase() &&
+
+                        account.email.toLowerCase() !==
+                        currentUser.email.toLowerCase()
+                    );
+
+                });
+
+
+            if (duplicate) {
+
+                return setFieldState(
+                    input,
+                    error,
+                    'This email address is already registered.'
+                );
+            }
+
+
+            return setFieldState(
+                input,
+                error,
+                ''
+            );
+        }
+
+
+
+        /* =====================================================
+           LOAD PROFILE
+        ====================================================== */
+
+        function loadProfile() {
+
+            currentUser =
+                getCurrentUser();
+
+
+            if (!currentUser) {
+
+                window.location.href =
+                    'Landing_Page.html';
+
+                return false;
+            }
+
+
+            const firstName =
+                currentUser.firstName || '';
+
+            const lastName =
+                currentUser.lastName || '';
+
+
+            /*
+             * Load first name
+             */
+            document.getElementById(
+                'firstName'
+            ).value =
+                firstName;
+
+
+            /*
+             * Load last name
+             */
+            document.getElementById(
+                'lastName'
+            ).value =
+                lastName;
+
+
+            /*
+             * Load mobile
+             */
+            document.getElementById(
+                'mobile'
+            ).value =
+                currentUser.mobile || '';
+
+
+            /*
+             * Load email
+             */
+            document.getElementById(
+                'email'
+            ).value =
+                currentUser.email || '';
+
+
+            /*
+             * Display customer name
+             */
+            document.getElementById(
+                'displayName'
+            ).textContent =
+                `${firstName} ${lastName}`.trim()
+                || 'Customer';
+
+
+            /*
+             * Load initials
+             */
+            const initials =
+                `${firstName.charAt(0)}${lastName.charAt(0)}`
+                .toUpperCase()
+                || 'CU';
+
+
+            document.getElementById(
+                'initials'
+            ).textContent =
+                initials;
+
+
+            /*
+             * Load existing profile picture
+             */
+            const preview =
+                document.getElementById(
+                    'profilePreview'
+                );
+
+
+            if (currentUser.profilePicture) {
+
+                preview.src =
+                    currentUser.profilePicture;
+
+                preview.style.display =
+                    'block';
+
+                document.getElementById(
+                    'initials'
+                ).style.display =
+                    'none';
+
+            } else {
+
+                preview.style.display =
+                    'none';
+
+                document.getElementById(
+                    'initials'
+                ).style.display =
+                    'flex';
+            }
+
+
+            return true;
+        }
+
+
+
+        /* =====================================================
+           PROFILE PICTURE
+           CLICK PROFILE PICTURE TO CHANGE
+        ====================================================== */
+
+        function initializeProfilePicture() {
+
+            const input =
+                document.getElementById(
+                    'profilePicture'
+                );
+
+            const avatar =
+                document.getElementById(
+                    'profileAvatar'
+                );
+
+
+            if (!input || !avatar) {
+                return;
+            }
+
+
+            /*
+             * Customer clicks the profile picture
+             */
+            avatar.addEventListener(
+                'click',
+                function () {
+
+                    input.click();
+
+                }
+            );
+
+
+            /*
+             * Customer selects a new picture
+             */
+            input.addEventListener(
+                'change',
+                function () {
+
+                    const file =
+                        this.files[0];
+
+
+                    if (!file) {
+                        return;
+                    }
+
+
+                    /*
+                     * Allowed image types
+                     */
+                    const allowedTypes = [
+
+                        'image/jpeg',
+
+                        'image/png',
+
+                        'image/webp'
+
+                    ];
+
+
+                    if (
+                        !allowedTypes.includes(
+                            file.type
+                        )
+                    ) {
+
+                        alert(
+                            'Please upload a JPG, PNG, or WEBP image.'
+                        );
+
+                        this.value = '';
+
+                        return;
+                    }
+
+
+                    /*
+                     * Maximum size: 2 MB
+                     */
+                    const maxSize =
+                        2 * 1024 * 1024;
+
+
+                    if (file.size > maxSize) {
+
+                        alert(
+                            'Profile picture must not exceed 2 MB.'
+                        );
+
+                        this.value = '';
+
+                        return;
+                    }
+
+
+                    /*
+                     * Read image
+                     */
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function (event) {
+
+                            const preview =
+                                document.getElementById(
+                                    'profilePreview'
+                                );
+
+                            const initials =
+                                document.getElementById(
+                                    'initials'
+                                );
+
+
+                            /*
+                             * Show selected picture
+                             */
+                            preview.src =
+                                event.target.result;
+
+                            preview.style.display =
+                                'block';
+
+
+                            /*
+                             * Hide initials
+                             */
+                            initials.style.display =
+                                'none';
+
+                        };
+
+
+                    reader.readAsDataURL(file);
+
+                }
+            );
+        }
+
+
+
+        /* =====================================================
+           MOBILE MENU
+        ====================================================== */
+
+        function initializeMobileMenu() {
+
+            const button =
+                document.getElementById(
+                    'profileMobileMenuBtn'
+                );
+
+            const menu =
+                document.getElementById(
+                    'profileMobileMenu'
+                );
+
+
+            if (!button || !menu) {
+                return;
+            }
+
+
+            button.addEventListener(
+                'click',
+                () => {
+
+                    menu.classList.toggle(
+                        'show'
+                    );
+
+
+                    const icon =
+                        button.querySelector('i');
+
+
+                    if (
+                        menu.classList.contains(
+                            'show'
+                        )
+                    ) {
+
+                        icon.className =
+                            'fa-solid fa-xmark';
+
+                    } else {
+
+                        icon.className =
+                            'fa-solid fa-bars-staggered';
+
+                    }
+
+                }
+            );
+
+
+            /*
+             * Close menu after clicking a link
+             */
+            menu.querySelectorAll('a')
+                .forEach(link => {
+
+                    link.addEventListener(
+                        'click',
+                        () => {
+
+                            menu.classList.remove(
+                                'show'
+                            );
+
+
+                            const icon =
+                                button.querySelector('i');
+
+
+                            if (icon) {
+
+                                icon.className =
+                                    'fa-solid fa-bars-staggered';
+
+                            }
+
+                        }
+                    );
+
+                });
+
+        }
+
+
+
+        /* =====================================================
+           SAVE PROFILE
+        ====================================================== */
+
+        function saveProfile(
+            accounts,
+            index,
+            firstName,
+            lastName,
+            mobile,
+            email,
+            profilePicture
+        ) {
+
+
+            /*
+             * Update account
+             */
+            accounts[index] = {
+
+                ...accounts[index],
+
+                firstName:
+                    firstName,
+
+                lastName:
+                    lastName,
+
+                mobile:
+                    mobile,
+
+                email:
+                    email,
+
+                profilePicture:
+                    profilePicture
+
+            };
+
+
+            /*
+             * Save accounts
+             */
+            localStorage.setItem(
+                ACCOUNTS_KEY,
+                JSON.stringify(accounts)
+            );
+
+
+            /*
+             * Update current session
+             */
+            const updatedUser = {
+
+                ...currentUser,
+
+                firstName:
+                    firstName,
+
+                lastName:
+                    lastName,
+
+                mobile:
+                    mobile,
+
+                email:
+                    email,
+
+                profilePicture:
+                    profilePicture
+
+            };
+
+
+            localStorage.setItem(
+                SESSION_KEY,
+                JSON.stringify(updatedUser)
+            );
+
+
+            /*
+             * Profile updated flag
+             */
+            sessionStorage.setItem(
+                'profileUpdated',
+                'true'
+            );
+
+
+            /*
+             * Disable save button
+             */
+            const saveButton =
+                document.getElementById(
+                    'saveProfileBtn'
+                );
+
+
+            saveButton.disabled =
+                true;
+
+
+            saveButton.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i><span>Saving...</span>';
+
+
+            /*
+             * Return to profile page
+             */
+            setTimeout(
+                () => {
+
+                    window.location.href =
+                        './view_profile.html';
+
+                },
+                500
+            );
+
+        }
+
+
+
+        /* =====================================================
+           INITIALIZE PAGE
+        ====================================================== */
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+
+                /*
+                 * Load customer profile
+                 */
+                if (!loadProfile()) {
+                    return;
+                }
+
+
+                /*
+                 * Initialize mobile menu
+                 */
+                initializeMobileMenu();
+
+
+                /*
+                 * Initialize profile picture
+                 */
+                initializeProfilePicture();
+
+
+
+                /* =================================================
+                   FIRST NAME
+                ================================================= */
+
+                document
+                    .getElementById('firstName')
+                    .addEventListener(
+                        'blur',
+                        validateFirstName
+                    );
+
+
+
+                /* =================================================
+                   LAST NAME
+                ================================================= */
+
+                document
+                    .getElementById('lastName')
+                    .addEventListener(
+                        'blur',
+                        validateLastName
+                    );
+
+
+
+                /* =================================================
+                   MOBILE
+                ================================================= */
+
+                document
+                    .getElementById('mobile')
+                    .addEventListener(
+                        'blur',
+                        validateMobile
+                    );
+
+
+
+                /* =================================================
+                   EMAIL
+                ================================================= */
+
+                document
+                    .getElementById('email')
+                    .addEventListener(
+                        'blur',
+                        validateEmail
+                    );
+
+
+
+                /* =================================================
+                   MOBILE INPUT
+                ================================================= */
+
+                document
+                    .getElementById('mobile')
+                    .addEventListener(
+                        'input',
+                        function () {
+
+                            this.value =
+                                this.value
+                                    .replace(/\D/g, '')
+                                    .slice(0, 11);
+
+                        }
+                    );
+
+
+
+                /* =================================================
+                   FORM SUBMIT
+                ================================================= */
+
+                document
+                    .getElementById('profileForm')
+                    .addEventListener(
+                        'submit',
+                        function (event) {
+
+                            event.preventDefault();
+
+
+                            /*
+                             * Validate all fields
+                             */
+                            const validFirstName =
+                                validateFirstName();
+
+
+                            const validLastName =
+                                validateLastName();
+
+
+                            const validMobile =
+                                validateMobile();
+
+
+                            const validEmail =
+                                validateEmail();
+
+
+                            const generalError =
+                                document.getElementById(
+                                    'generalError'
+                                );
+
+
+                            /*
+                             * Stop if validation fails
+                             */
+                            if (
+                                !validFirstName ||
+                                !validLastName ||
+                                !validMobile ||
+                                !validEmail
+                            ) {
+
+                                generalError.classList.add(
+                                    'show'
+                                );
+
+                                return;
+                            }
+
+
+                            generalError.classList.remove(
+                                'show'
+                            );
+
+
+                            /*
+                             * Get accounts
+                             */
+                            const accounts =
+                                JSON.parse(
+                                    localStorage.getItem(
+                                        ACCOUNTS_KEY
+                                    )
+                                ) || [];
+
+
+                            /*
+                             * Get updated values
+                             */
+                            const updatedFirstName =
+                                document
+                                    .getElementById(
+                                        'firstName'
+                                    )
+                                    .value
+                                    .trim();
+
+
+                            const updatedLastName =
+                                document
+                                    .getElementById(
+                                        'lastName'
+                                    )
+                                    .value
+                                    .trim();
+
+
+                            const updatedMobile =
+                                document
+                                    .getElementById(
+                                        'mobile'
+                                    )
+                                    .value
+                                    .trim();
+
+
+                            const updatedEmail =
+                                document
+                                    .getElementById(
+                                        'email'
+                                    )
+                                    .value
+                                    .trim();
+
+
+                            /*
+                             * Find current account
+                             *
+                             * Email is used as the account
+                             * identifier.
+                             */
+                            const index =
+                                accounts.findIndex(
+                                    account => {
+
+                                        return (
+
+                                            account.email &&
+
+                                            currentUser.email &&
+
+                                            account.email.toLowerCase() ===
+                                            currentUser.email.toLowerCase()
+
+                                        );
+
+                                    }
+                                );
+
+
+                            /*
+                             * Account not found
+                             */
+                            if (index === -1) {
+
+                                generalError.classList.add(
+                                    'show'
+                                );
+
+
+                                document.getElementById(
+                                    'generalErrorText'
+                                ).textContent =
+                                    'Unable to update your profile. Please log in again.';
+
+
+                                return;
+                            }
+
+
+                            /*
+                             * Existing profile picture
+                             */
+                            let updatedProfilePicture =
+                                currentUser.profilePicture ||
+                                null;
+
+
+                            /*
+                             * Picture input
+                             */
+                            const pictureInput =
+                                document.getElementById(
+                                    'profilePicture'
+                                );
+
+
+                            const pictureFile =
+                                pictureInput.files[0];
+
+
+                            /*
+                             * If a new picture was selected,
+                             * convert it to Base64.
+                             */
+                            if (pictureFile) {
+
+                                const reader =
+                                    new FileReader();
+
+
+                                reader.onload =
+                                    function (event) {
+
+                                        updatedProfilePicture =
+                                            event.target.result;
+
+
+                                        saveProfile(
+
+                                            accounts,
+
+                                            index,
+
+                                            updatedFirstName,
+
+                                            updatedLastName,
+
+                                            updatedMobile,
+
+                                            updatedEmail,
+
+                                            updatedProfilePicture
+
+                                        );
+
+                                    };
+
+
+                                reader.readAsDataURL(
+                                    pictureFile
+                                );
+
+
+                            } else {
+
+                                /*
+                                 * No new picture.
+                                 * Keep existing picture.
+                                 */
+                                saveProfile(
+
+                                    accounts,
+
+                                    index,
+
+                                    updatedFirstName,
+
+                                    updatedLastName,
+
+                                    updatedMobile,
+
+                                    updatedEmail,
+
+                                    updatedProfilePicture
+
+                                );
+
+                            }
+
+                        }
+                    );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

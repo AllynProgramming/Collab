@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Merz Beauty Glow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/dashboard.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="header-inner">
+            <a href="Landing_Page.html" class="brand">
+                <img src="Asset/logo.png" alt="Merz Beauty Glow Salon and Spa" class="dashboard-logo">
+            </a>
+
+            <nav class="desktop-nav" aria-label="Main navigation">
+                <a class="active" href="Dashboard.html">Dashboard</a>
+                <a href="Landing_Page.html#services">Services</a>
+                <a href="Landing_Page.html#contact">Contact Us</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="view_profile.html" class="profile-link"><i class="fa-regular fa-circle-user"></i><span>My Profile</span></a>
+                <button type="button" class="logout-button" id="logoutButton"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
+            </div>
+            <button type="button" class="menu-button" id="menuButton" aria-label="Open navigation menu" aria-expanded="false"><i class="fa-solid fa-bars-staggered"></i></button>
+        </div>
+        <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+            <a class="active" href="Dashboard.html"><i class="fa-solid fa-chart-pie"></i>Dashboard</a>
+            <a href="Landing_Page.html#services"><i class="fa-solid fa-spa"></i>Services</a>
+            <a href="Landing_Page.html#contact"><i class="fa-solid fa-location-dot"></i>Contact Us</a>
+            <a href="view_profile.html"><i class="fa-regular fa-circle-user"></i>My Profile</a>
+            <button type="button" id="mobileLogoutButton"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        </nav>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <div class="breadcrumb"><a href="Landing_Page.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>Dashboard</span></div>
+
+            <section class="welcome-row">
+                <div>
+                    <span class="eyebrow"><i class="fa-solid fa-sparkles"></i> Your beauty ritual</span>
+                    <h1>Good morning, <em id="customerName">Guest</em>.</h1>
+                    <p>Keep your glow routine close and your next moment of care even closer.</p>
+                </div>
+                <a href="#book" class="gold-button"><i class="fa-solid fa-plus"></i> Book a session</a>
+            </section>
+
+            <section class="stats-grid" aria-label="Account summary">
+                <article class="stat-card"><span class="stat-icon green"><i class="fa-solid fa-calendar-check"></i></span><div><small>Next appointment</small><strong>18 <span>JUN</span></strong><p>10:30 AM</p></div></article>
+                <article class="stat-card"><span class="stat-icon gold"><i class="fa-solid fa-heart"></i></span><div><small>Glow points</small><strong>240</strong><p>40 points to your next reward</p></div></article>
+                <article class="stat-card"><span class="stat-icon mint"><i class="fa-solid fa-spa"></i></span><div><small>Visits this year</small><strong>06</strong><p>You're building a beautiful rhythm</p></div></article>
+            </section>
+
+            <div class="dashboard-grid">
+                <section class="panel appointment-panel">
+                    <div class="panel-heading"><div><span class="section-kicker">Coming up</span><h2>Your next glow session</h2></div><span class="status-pill"><i class="fa-solid fa-circle"></i> Confirmed</span></div>
+                    <div class="appointment-content">
+                        <div class="appointment-date"><strong>18</strong><span>JUN<br>2026</span></div>
+                        <div class="appointment-details"><h3>Botanical Glow Facial</h3><p><i class="fa-regular fa-clock"></i> 10:30 AM &nbsp; <i class="fa-solid fa-hourglass-half"></i> 75 minutes</p><p><i class="fa-solid fa-location-dot"></i> Merz Beauty Glow, Malaybalay City</p></div>
+                    </div>
+                    <div class="panel-footer"><span>Prepared especially for your skin goals.</span><button type="button" class="text-button" id="rescheduleButton">Manage appointment <i class="fa-solid fa-arrow-right"></i></button></div>
+                </section>
+
+                <section class="panel care-panel" id="book">
+                    <div class="panel-heading"><div><span class="section-kicker">Make time for you</span><h2>Book a service</h2></div><i class="fa-solid fa-leaf panel-leaf"></i></div>
+                    <div class="service-list">
+                        <button type="button" class="service-option" data-service="Facial & Skincare"><span class="service-symbol"><i class="fa-solid fa-face-smile-beam"></i></span><span><strong>Facial &amp; Skincare</strong><small>From ₱850</small></span><i class="fa-solid fa-chevron-right"></i></button>
+                        <button type="button" class="service-option" data-service="Hair & Styling"><span class="service-symbol"><i class="fa-solid fa-wand-magic-sparkles"></i></span><span><strong>Hair &amp; Styling</strong><small>From ₱650</small></span><i class="fa-solid fa-chevron-right"></i></button>
+                        <button type="button" class="service-option" data-service="Body & Spa Rituals"><span class="service-symbol"><i class="fa-solid fa-spa"></i></span><span><strong>Body &amp; Spa Rituals</strong><small>From ₱950</small></span><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </section>
+
+                <section class="panel visits-panel">
+                    <div class="panel-heading"><div><span class="section-kicker">Your care history</span><h2>Recent visits</h2></div><a href="#history" class="view-link">View all</a></div>
+                    <div class="visit-row"><span class="visit-icon"><i class="fa-solid fa-droplet"></i></span><div><strong>Hydra Glow Facial</strong><small>28 May 2026</small></div><span class="visit-price">₱1,200</span></div>
+                    <div class="visit-row"><span class="visit-icon"><i class="fa-solid fa-scissors"></i></span><div><strong>Hair Treatment</strong><small>09 Apr 2026</small></div><span class="visit-price">₱950</span></div>
+                    <div class="visit-row"><span class="visit-icon"><i class="fa-solid fa-seedling"></i></span><div><strong>Botanical Body Scrub</strong><small>16 Mar 2026</small></div><span class="visit-price">₱1,450</span></div>
+                </section>
+
+                <aside class="panel profile-card">
+                    <span class="profile-orbit"><i class="fa-solid fa-leaf"></i></span><span class="section-kicker">Your account</span><h2 id="profileName">Guest Customer</h2><p id="profileEmail">Sign in to see your account details.</p><a href="view_profile.html" class="outline-button">View profile <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>
+        const SESSION_KEY = 'merzBeautySession';
+        const session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+        const firstName = session && session.firstName ? session.firstName : 'Guest';
+        document.getElementById('customerName').textContent = firstName;
+        if (session) {
+            document.getElementById('profileName').textContent = `${session.firstName} ${session.lastName}`;
+            document.getElementById('profileEmail').textContent = session.email;
+        }
+
+        const mobileNav = document.getElementById('mobileNav');
+        document.getElementById('menuButton').addEventListener('click', () => {
+            const isOpen = mobileNav.classList.toggle('open');
+            document.getElementById('menuButton').setAttribute('aria-expanded', String(isOpen));
+        });
+        const showToast = message => {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        };
+        const logout = () => {
+            localStorage.removeItem(SESSION_KEY);
+            window.location.href = 'Landing_Page.html';
+        };
+        document.getElementById('logoutButton').addEventListener('click', logout);
+        document.getElementById('mobileLogoutButton').addEventListener('click', logout);
+        document.querySelectorAll('.service-option').forEach(button => button.addEventListener('click', () => showToast(`${button.dataset.service} selected. Choose your preferred schedule next.`)));
+        document.getElementById('rescheduleButton').addEventListener('click', () => showToast('Appointment management will be available soon.'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merz Beauty Glow | Salon & Spa Malaybalay City</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/landing.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        botanical: {
+                            bg: '#EDF7F2',
+                            card: '#FFFFFF',
+                            mint: '#D8F3DC',
+                            'mint-accent': '#B7E4C7',
+                            leaf: '#52B788',
+                            emerald: '#2D6A4F',
+                            jungle: '#1E5631',
+                            deep: '#0B2B18',
+                            gold: '#D4AF37',
+                            'gold-light': '#FDF6E2',
+                            'gold-hover': '#C5A059',
+                            text: '#112A1B'
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        playfair: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-botanical-bg text-botanical-text antialiased selection:bg-botanical-mint selection:text-botanical-jungle">
+
+    <header class="fixed top-0 left-0 right-0 z-40 nav-blur transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center group">
+                    <img src="Asset/logo.png" alt="Merz Beauty Glow Salon and Spa" class="landing-logo group-hover:scale-105 transition" />
+                </a>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-xs font-bold uppercase tracking-widest text-botanical-jungle">
+                    <a href="#services" class="hover:text-botanical-leaf transition duration-200">Services</a>
+                    <a href="#treatments" class="hover:text-botanical-leaf transition duration-200">Treatments</a>
+                    <a href="#featured" class="hover:text-botanical-leaf transition duration-200">Featured Glow</a>
+                    <a href="#contact" class="hover:text-botanical-leaf transition duration-200">Contact Us</a>
+                </nav>
+
+                <!-- Auth Action Buttons -->
+                <div class="hidden sm:flex items-center space-x-3">
+                    <a id="profileBtn" href="CUstomer_Dashboard.html" class="hidden text-xs uppercase tracking-widest font-extrabold text-botanical-jungle hover:text-botanical-emerald px-5 py-2.5 rounded-full border-2 border-botanical-emerald/40 hover:border-botanical-emerald transition bg-white shadow-sm">
+                        My Profile
+                    </a>
+                    <button id="navLoginBtn" type="button" class="text-xs uppercase tracking-widest font-extrabold text-botanical-jungle hover:text-botanical-emerald px-5 py-2.5 rounded-full border-2 border-botanical-emerald/40 hover:border-botanical-emerald transition bg-white shadow-sm">
+                        Sign In
+                    </button>
+                    <button id="registerBtn" type="button" onclick="openModal('registerModal')" class="btn-gold-accent text-xs uppercase tracking-widest px-6 py-2.5 rounded-full font-extrabold shadow-md">
+                        Register Account
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="text-botanical-jungle p-2 text-2xl focus:outline-none">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/95 border-b border-botanical-leaf/30 px-6 py-6 space-y-4 shadow-xl">
+            <a href="#services" class="block text-sm font-bold tracking-wider text-botanical-jungle hover:text-botanical-leaf">Services</a>
+            <a href="#treatments" class="block text-sm font-bold tracking-wider text-botanical-jungle hover:text-botanical-leaf">Treatments</a>
+            <a href="#featured" class="block text-sm font-bold tracking-wider text-botanical-jungle hover:text-botanical-leaf">Featured Glow</a>
+            <a href="#contact" class="block text-sm font-bold tracking-wider text-botanical-jungle hover:text-botanical-leaf">Contact Us</a>
+            <div class="pt-4 border-t border-botanical-mint flex flex-col space-y-3">
+                <a id="mobileProfileBtn" href="CUstomer_Dashboard.html" class="hidden w-full text-center py-3 border-2 border-botanical-emerald text-botanical-jungle rounded-full font-bold text-xs tracking-widest uppercase bg-white">
+                    My Profile
+                </a>
+                <button id="mobileLoginBtn" type="button" onclick="openModal('loginModal')" class="w-full text-center py-3 border-2 border-botanical-emerald text-botanical-jungle rounded-full font-bold text-xs tracking-widest uppercase bg-white">
+                    Sign In
+                </button>
+                <button id="mobileRegisterBtn" type="button" onclick="openModal('registerModal')" class="w-full text-center btn-gold-accent py-3 rounded-full font-bold text-xs tracking-widest uppercase">
+                    Register Account
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative pt-28 lg:pt-36 pb-20 lg:pb-28 overflow-hidden">
+        <!-- Vibrant Green Background Accents -->
+        <div class="absolute top-10 left-10 w-96 h-96 bg-botanical-mint rounded-full blur-[100px] pointer-events-none opacity-80"></div>
+        <div class="absolute top-1/3 right-10 w-96 h-96 bg-botanical-mint-accent rounded-full blur-[110px] pointer-events-none opacity-70"></div>
+        <div class="absolute bottom-10 left-1/3 w-80 h-80 bg-botanical-gold-light rounded-full blur-[90px] pointer-events-none opacity-90"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Hero Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full border-2 border-botanical-emerald/30 bg-white text-botanical-jungle text-xs font-extrabold tracking-wider uppercase shadow-sm">
+                        <i class="fa-solid fa-sparkles text-botanical-gold text-sm"></i>
+                        <span>Malaybalay City's Botanical Beauty Sanctuary</span>
+                    </div>
+
+                    <h1 class="font-playfair text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-botanical-deep">
+                        Bring Out Your <br class="hidden sm:inline" />
+                        <span class="green-gradient-text italic font-normal">Natural Beauty & Glow</span>
+                    </h1>
+
+                    <p class="text-botanical-jungle/80 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                        Welcome to Malaybalay's premiere green beauty lounge! Experience luxurious skin revival, botanical spa treatments, and expert hair styling designed to make you feel vibrant and radiant.
+                    </p>
+
+                    <!-- Primary Actions -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <button onclick="openModal('registerModal')" class="btn-green-main w-full sm:w-auto px-8 py-4 rounded-full text-xs font-extrabold uppercase tracking-widest flex items-center justify-center space-x-2">
+                            <span>Book Your Glow Session</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        <a href="#services" class="w-full sm:w-auto px-8 py-4 rounded-full text-xs font-extrabold uppercase tracking-widest border-2 border-botanical-emerald text-botanical-jungle hover:bg-botanical-emerald hover:text-white transition duration-300 text-center bg-white shadow-sm">
+                            Explore Menu
+                        </a>
+                    </div>
+
+                    <div id="profilePanel" class="hidden mt-4 max-w-md rounded-3xl border border-botanical-gold/40 bg-white/90 p-4 shadow-lg">
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div class="flex h-11 w-11 items-center justify-center rounded-full bg-botanical-jungle text-lg text-botanical-gold">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-[0.2em] text-botanical-emerald font-bold">Welcome back</p>
+                                    <h3 id="profileName" class="font-playfair text-xl font-bold text-botanical-deep">Guest</h3>
+                                </div>
+                            </div>
+                            <button id="profileLogoutBtn" type="button" class="rounded-full border border-botanical-emerald/40 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-botanical-jungle hover:bg-botanical-emerald hover:text-white transition">
+                                Logout
+                            </button>
+                        </div>
+                        <div class="mt-3 grid gap-2 text-xs text-botanical-jungle/80 sm:grid-cols-2">
+                            <div class="rounded-2xl bg-botanical-bg p-2">
+                                <span class="block text-[10px] uppercase tracking-[0.2em] text-botanical-emerald font-bold">Email</span>
+                                <span id="profileEmail" class="mt-1 block font-medium">-</span>
+                            </div>
+                            <div class="rounded-2xl bg-botanical-bg p-2">
+                                <span class="block text-[10px] uppercase tracking-[0.2em] text-botanical-emerald font-bold">Mobile</span>
+                                <span id="profilePhone" class="mt-1 block font-medium">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Highlight Badges -->
+                    <div class="pt-8 border-t border-botanical-emerald/20 grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 text-center lg:text-left">
+                        <div class="bg-white/80 p-3 rounded-2xl border border-botanical-leaf/20 shadow-sm">
+                            <span class="block font-playfair text-2xl font-bold text-botanical-jungle">100%</span>
+                            <span class="text-[11px] text-botanical-emerald font-bold uppercase">Botanical Care</span>
+                        </div>
+                        <div class="bg-white/80 p-3 rounded-2xl border border-botanical-leaf/20 shadow-sm">
+                            <span class="block font-playfair text-2xl font-bold text-botanical-gold">5.0 ★</span>
+                            <span class="text-[11px] text-botanical-emerald font-bold uppercase">Malaybalay Choice</span>
+                        </div>
+                        <div class="bg-white/80 p-3 rounded-2xl border border-botanical-leaf/20 shadow-sm">
+                            <span class="block font-playfair text-2xl font-bold text-botanical-emerald">Bukidnon</span>
+                            <span class="text-[11px] text-botanical-emerald font-bold uppercase">Top Spa & Salon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right: Featured Wreath Portrait -->
+                <div id="featured" class="lg:col-span-5 flex justify-center items-center">
+                    <div class="portrait-green-glow p-2 max-w-sm sm:max-w-md w-full">
+                        <div class="relative bg-white p-5 sm:p-6 rounded-[2.5rem] border-2 border-botanical-gold shadow-2xl overflow-hidden group">
+                            
+                            <!-- Leaf Corner Accents -->
+                            <div class="absolute -top-8 -right-8 w-28 h-28 bg-botanical-mint rounded-full blur-md pointer-events-none"></div>
+                            <div class="absolute -bottom-8 -left-8 w-28 h-28 bg-botanical-gold-light rounded-full blur-md pointer-events-none"></div>
+
+                            <!-- Portrait Outer Wreath Container -->
+                            <div class="relative z-10 overflow-hidden rounded-[2rem] border-4 border-botanical-mint bg-botanical-bg p-2 text-center">
+                                
+                                <img id="featuredPortrait" 
+                                     src="Asset/logo.png" 
+                                     alt="Merz Beauty Glow Ambassador & Founder" 
+                                     class="w-full h-auto object-cover rounded-[1.5rem] transform group-hover:scale-105 transition duration-500 ease-out"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/400x500/D8F3DC/1E5631?text=Merz+Beauty+Glow';" />
+
+                                <div class="mt-3 py-2 px-3 bg-botanical-jungle rounded-xl text-white">
+                                    <span class="text-xs font-cinzel text-botanical-gold font-bold tracking-widest uppercase block">Founder & Skin Specialist</span>
+                                    <span class="text-[11px] text-botanical-mint font-medium">Merz Beauty Glow • Malaybalay</span>
+                                </div>
+                            </div>
+
+                            <!-- Floating Green Badge 1 -->
+                            <div class="absolute top-8 right-8 bg-white border-2 border-botanical-leaf px-3.5 py-1.5 rounded-full flex items-center space-x-1.5 text-xs text-botanical-jungle shadow-lg">
+                                <i class="fa-solid fa-certificate text-botanical-gold"></i>
+                                <span class="font-bold text-[11px]">Malaybalay's Choice</span>
+                            </div>
+
+                            <!-- Floating Green Badge 2 -->
+                            <div class="absolute bottom-16 left-8 bg-white border-2 border-botanical-gold px-3.5 py-1.5 rounded-full flex items-center space-x-1.5 text-xs text-botanical-jungle shadow-lg">
+                                <i class="fa-solid fa-spa text-botanical-emerald"></i>
+                                <span class="font-bold text-[11px]">Glowing Skin Specialist</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 relative bg-white border-y border-botanical-emerald/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-extrabold tracking-[0.2em] text-botanical-jungle uppercase bg-botanical-mint px-4 py-1.5 rounded-full border border-botanical-leaf/30">
+                    Botanical Spa & Salon Menu
+                </span>
+                <h2 class="font-playfair text-3xl sm:text-4xl font-extrabold text-botanical-deep">Our Signature Services</h2>
+                <p class="text-botanical-jungle/70 text-sm font-medium">Specially crafted for your well-being and beauty revival in Bukidnon.</p>
+            </div>
+
+            <!-- Services 4-Column Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Service 1 -->
+                <div class="green-card p-6 rounded-3xl transition duration-300 flex flex-col justify-between group hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-botanical-jungle text-botanical-gold flex items-center justify-center text-2xl group-hover:scale-110 transition shadow-md">
+                            <i class="fa-solid fa-face-smile-beam"></i>
+                        </div>
+                        <h3 class="font-playfair text-xl font-bold text-botanical-deep group-hover:text-botanical-emerald transition">Facial & Skincare</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed font-medium">Deep hydration glow facials, glass skin treatment, organic collagen mask, and acne care therapies.</p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-botanical-mint flex items-center justify-between text-xs">
+                        <span class="text-botanical-jungle font-extrabold text-base">₱850</span>
+                        <button onclick="openModal('registerModal')" class="btn-green-main px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-wider">
+                            Book
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="green-card p-6 rounded-3xl transition duration-300 flex flex-col justify-between group hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-botanical-gold text-botanical-deep flex items-center justify-center text-2xl group-hover:scale-110 transition shadow-md">
+                            <i class="fa-solid fa-scissors"></i>
+                        </div>
+                        <h3 class="font-playfair text-xl font-bold text-botanical-deep group-hover:text-botanical-gold transition">Hair Styling & Care</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed font-medium">Botanical keratin treatment, hair rebonding, balayage coloring, precision cuts, and blowouts.</p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-botanical-mint flex items-center justify-between text-xs">
+                        <span class="text-botanical-jungle font-extrabold text-base">₱1,200</span>
+                        <button onclick="openModal('registerModal')" class="btn-gold-accent px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-wider">
+                            Book
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="green-card p-6 rounded-3xl transition duration-300 flex flex-col justify-between group hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-botanical-jungle text-botanical-gold flex items-center justify-center text-2xl group-hover:scale-110 transition shadow-md">
+                            <i class="fa-solid fa-spa"></i>
+                        </div>
+                        <h3 class="font-playfair text-xl font-bold text-botanical-deep group-hover:text-botanical-emerald transition">Body Spa & Massage</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed font-medium">Aromatherapy full body Swedish massage, hot stone relaxation, and gentle herbal body scrubs.</p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-botanical-mint flex items-center justify-between text-xs">
+                        <span class="text-botanical-jungle font-extrabold text-base">₱750</span>
+                        <button onclick="openModal('registerModal')" class="btn-green-main px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-wider">
+                            Book
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="green-card p-6 rounded-3xl transition duration-300 flex flex-col justify-between group hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-botanical-gold text-botanical-deep flex items-center justify-center text-2xl group-hover:scale-110 transition shadow-md">
+                            <i class="fa-solid fa-hand-sparkles"></i>
+                        </div>
+                        <h3 class="font-playfair text-xl font-bold text-botanical-deep group-hover:text-botanical-gold transition">Nail Art & Care</h3>
+                        <p class="text-slate-600 text-xs leading-relaxed font-medium">Deluxe gel manicures, foot spa pedicures, volume eyelash extensions, and nail extensions.</p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-botanical-mint flex items-center justify-between text-xs">
+                        <span class="text-botanical-jungle font-extrabold text-base">₱500</span>
+                        <button onclick="openModal('registerModal')" class="btn-gold-accent px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-wider">
+                            Book
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-16 rounded-[2rem] border border-botanical-gold/40 bg-white shadow-[0_20px_50px_-25px_rgba(30,86,49,0.25)] overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_1.8fr]">
+                    <div class="bg-botanical-bg p-8 sm:p-10 border-b border-botanical-gold/30 lg:border-r lg:border-b-0">
+                        <div class="flex items-center justify-center mb-6">
+                            <div class="w-full max-w-xs rounded-full border-2 border-botanical-gold bg-gradient-to-r from-[#f7d76a] via-[#ebc761] to-[#f5df8a] px-5 py-4 shadow-md">
+                                <div class="text-center">
+                                    <div class="font-cinzel text-3xl sm:text-4xl font-black text-botanical-jungle tracking-tight leading-none">MERZ</div>
+                                    <div class="font-playfair italic text-sm sm:text-base text-botanical-jungle/80">Beauty Glow</div>
+                                    <div class="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-botanical-jungle/80 mt-1">Salon and Spa</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mb-6">
+                            <h3 class="font-playfair text-2xl sm:text-3xl font-extrabold text-botanical-jungle">Corner Grema Subdivision,<br>Casisang Malaybalay City</h3>
+                        </div>
+
+                        <div class="rounded-3xl border-2 border-botanical-leaf/30 bg-white p-4 shadow-sm">
+                            <div class="w-full h-56 rounded-[1.5rem] overflow-hidden border border-botanical-mint bg-botanical-jungle/5">
+                                <img src="Asset/logo.png" alt="Merz Beauty Glow featured client" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/500x600/D8F3DC/1E5631?text=Merz+Beauty+Glow';" />
+                            </div>
+                        </div>
+
+                        <div class="mt-8 rounded-2xl bg-botanical-emerald px-4 py-3 text-center shadow-md">
+                            <p class="text-sm font-extrabold uppercase tracking-widest text-white">Contact Number</p>
+                        </div>
+
+                        <div class="mt-3 flex items-center justify-center gap-3 text-botanical-jungle text-xl sm:text-2xl font-bold">
+                            <i class="fa-solid fa-phone text-botanical-emerald"></i>
+                            <span>(0917) 302 2953</span>
+                        </div>
+
+                        <div class="mt-4 flex items-center justify-center gap-3 text-botanical-jungle text-sm sm:text-base font-semibold break-all">
+                            <i class="fa-solid fa-envelope text-botanical-gold"></i>
+                            <span>yapmerzhie@gmail.com</span>
+                        </div>
+                    </div>
+
+                    <div class="p-8 sm:p-10 bg-white">
+                        <h3 class="font-playfair text-3xl sm:text-4xl font-extrabold text-botanical-deep mb-6">Affordable Services</h3>
+
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="font-playfair text-2xl font-bold text-botanical-jungle mb-3">Hand and Foot Care</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2 text-sm text-botanical-jungle/90">
+                                    <div class="flex items-center justify-between gap-4"><span>Manicure</span><span class="font-bold">₱150</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Footspa with pedicure</span><span class="font-bold">₱400</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Gel Polish</span><span class="font-bold">₱400</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Nail Extensions</span><span class="font-bold">₱600</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Eyelash Extension</span><span class="font-bold">₱300</span></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-playfair text-2xl font-bold text-botanical-jungle mb-3">Facial Care</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2 text-sm text-botanical-jungle/90">
+                                    <div class="flex items-center justify-between gap-4"><span>Basic Facial</span><span class="font-bold">₱700/Session</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Combo Facial</span><span class="font-bold">₱800/Session</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Hydra Facial</span><span class="font-bold">₱800</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Micro Needling</span><span class="font-bold">₱850/Session</span></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-playfair text-2xl font-bold text-botanical-jungle mb-3">Waxing and Threading</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2 text-sm text-botanical-jungle/90">
+                                    <div class="flex items-center justify-between gap-4"><span>Eyebrows Threading</span><span class="font-bold">₱150</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Under Arm Waxing</span><span class="font-bold">₱350</span></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-playfair text-2xl font-bold text-botanical-jungle mb-3">Hair Care Treatment</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2 text-sm text-botanical-jungle/90">
+                                    <div class="flex items-center justify-between gap-4"><span>Hair Color</span><span class="font-bold">₱500</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Hair Cellophane</span><span class="font-bold">₱600</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Hair Blow Dry</span><span class="font-bold">₱150</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Hair Iron</span><span class="font-bold">₱200</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Brazilian Rebond</span><span class="font-bold">₱1,500</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Hair Treatments Brazilian</span><span class="font-bold">₱1,000</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Hair Shampoo with blow dryer</span><span class="font-bold">₱300</span></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-playfair text-2xl font-bold text-botanical-jungle mb-3">Other Services</h4>
+                                <div class="space-y-2 text-sm text-botanical-jungle/90">
+                                    <div class="flex items-center justify-between gap-4"><span>Body Scrub</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Body Bleaching</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Wart Removal & Cauterization</span></div>
+                                    <div class="flex items-center justify-between gap-4"><span>Glutathione IV therapy or IV glutathione infusion</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="treatments" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-botanical-jungle text-white rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden shadow-2xl">
+                <div class="absolute -top-10 -right-10 w-80 h-80 bg-botanical-leaf/30 rounded-full blur-2xl pointer-events-none"></div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10">
+                    <div class="space-y-5">
+                        <span class="text-xs font-bold text-botanical-gold uppercase tracking-widest bg-white/10 px-3.5 py-1.5 rounded-full inline-block">
+                            <i class="fa-solid fa-leaf text-botanical-gold"></i> The Merz Beauty Standard
+                        </span>
+                        <h2 class="font-playfair text-3xl sm:text-4xl font-extrabold text-botanical-mint">
+                            Why Clients Choose Our Malaybalay Sanctuary
+                        </h2>
+                        <p class="text-white/80 text-xs sm:text-sm leading-relaxed font-medium">
+                            From organic botanical facial serums to soothing spa atmospheres, we treat every customer like royalty. Enjoy personalized consultations before every session.
+                        </p>
+                        <ul class="space-y-2 text-xs font-semibold text-botanical-mint">
+                            <li class="flex items-center space-x-2"><i class="fa-solid fa-circle-check text-botanical-gold"></i><span>Certified Organic & Gentle Products</span></li>
+                            <li class="flex items-center space-x-2"><i class="fa-solid fa-circle-check text-botanical-gold"></i><span>Hygienic & Sanitized Beauty Equipment</span></li>
+                            <li class="flex items-center space-x-2"><i class="fa-solid fa-circle-check text-botanical-gold"></i><span>Friendly & Experienced Salon Specialists</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
+                        <button onclick="openModal('registerModal')" class="btn-gold-accent px-8 py-4 rounded-full text-xs font-extrabold uppercase tracking-widest text-center shadow-lg">
+                            Register & Get Started
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="registerModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-botanical-deep/70 backdrop-blur-md">
+        <div class="bg-white max-w-lg w-full rounded-3xl p-6 sm:p-8 border-2 border-botanical-leaf relative shadow-2xl">
+            <!-- Close Button -->
+            <button onclick="closeModal('registerModal')" class="absolute top-4 right-4 text-slate-400 hover:text-botanical-jungle text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="text-center space-y-1 mb-6">
+                <span class="font-cinzel text-xs text-botanical-gold font-bold tracking-widest uppercase block">Merz Beauty Glow</span>
+                <h2 class="font-playfair text-2xl font-bold text-botanical-deep">Customer Registration</h2>
+                <p class="text-slate-500 text-xs font-medium">Create your account to book salon & spa appointments</p>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="registerForm" class="space-y-3.5" novalidate>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-botanical-jungle uppercase tracking-wider mb-1">First Name</label>
+                        <input type="text" name="firstName" id="firstName" required placeholder="Jane" class="w-full bg-botanical-bg/50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-botanical-leaf transition" />
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-botanical-jungle uppercase tracking-wider mb-1">Last Name</label>
+                        <input type="text" name="lastName" id="lastName" required placeholder="Doe" class="w-full bg-botanical-bg/50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-botanical-leaf transition" />
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-botanical-jungle uppercase tracking-wider mb-1">Mobile Number</label>
+                    <input type="tel" name="mobile" id="mobile" required placeholder="0917 000 0000" class="w-full bg-botanical-bg/50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-botanical-leaf transition" />
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-botanical-jungle uppercase tracking-wider mb-1">Email Address</label>
+                    <input type="email" name="email" id="email" required placeholder="jane@example.com" class="w-full bg-botanical-bg/50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-botanical-leaf transition" />
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-botanical-jungle uppercase tracking-wider mb-1">Password</label>
+                    <input type="password" name="password" id="password" required placeholder="••••••••" class="w-full bg-botanical-bg/50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-botanical-leaf transition" />
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-botanical-jungle uppercase tracking-wider mb-1">Confirm Password</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword" required placeholder="••••••••" class="w-full bg-botanical-bg/50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-botanical-leaf transition" />
+                </div>
+
+                <button type="submit" class="btn-green-main w-full py-3 rounded-xl text-xs font-extrabold uppercase tracking-widest mt-2 shadow-md">
+                    Complete Registration
+                </button>
+            </form>
+
+            <div class="mt-4 text-center text-xs text-slate-500 font-medium">
+                Already registered? 
+                <button onclick="switchModal('registerModal', 'loginModal')" class="text-botanical-jungle font-bold underline hover:text-botanical-leaf">Sign In Here</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loginModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-botanical-deep/70 backdrop-blur-md">
+        <div class="bg-white max-w-md w-full rounded-3xl p-6 sm:p-8 border-2 border-botanical-gold relative shadow-2xl">
+            <!-- Close Button -->
+            <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-slate-400 hover:text-botanical-gold text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="text-center space-y-1 mb-6">
+                <span class="font-cinzel text-xs text-botanical-emerald font-bold tracking-widest uppercase block">Merz Beauty Glow</span>
+                <h2 class="font-playfair text-2xl font-bold text-botanical-deep">Customer Login</h2>
+                <p class="text-slate-500 text-xs font-medium">Welcome back! Sign in to manage your appointments</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-4" novalidate>
+                <div>
+                    <label class="block text-[11px] font-bold text-botanical-jungle uppercase tracking-wider mb-1">Mobile or Email</label>
+                    <input type="text" name="identifier" id="loginIdentifier" required placeholder="0917... or name@email.com" class="w-full bg-botanical-bg/50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-botanical-gold transition" />
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="block text-[11px] font-bold text-botanical-jungle uppercase tracking-wider">Password</label>
+                        <a href="#" class="text-[11px] text-botanical-emerald font-bold hover:underline">Forgot?</a>
+                    </div>
+                    <input type="password" name="password" id="loginPassword" required placeholder="••••••••" class="w-full bg-botanical-bg/50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-botanical-gold transition" />
+                </div>
+
+                <div class="flex items-center space-x-2 py-1">
+                    <input type="checkbox" id="rememberMe" class="rounded border-slate-300 text-botanical-emerald focus:ring-0" />
+                    <label for="rememberMe" class="text-xs text-slate-600 font-medium">Remember me on this device</label>
+                </div>
+
+                <button type="submit" class="btn-gold-accent w-full py-3 rounded-xl text-xs font-extrabold uppercase tracking-widest mt-2 shadow-md">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="mt-6 text-center text-xs text-slate-500 font-medium">
+                Don't have an account yet? 
+                <button onclick="switchModal('loginModal', 'registerModal')" class="text-botanical-jungle font-bold underline hover:text-botanical-leaf">Create New Account</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-botanical-deep text-white px-5 py-3 rounded-2xl border-2 border-botanical-gold text-xs font-bold shadow-2xl flex items-center space-x-3">
+        <i class="fa-solid fa-circle-check text-base text-botanical-gold"></i>
+        <span id="toastMsg">Action completed!</span>
+    </div>
+
+    <footer id="contact" class="bg-botanical-deep text-white pt-16 pb-12 border-t-4 border-botanical-gold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-white/10">
+                
+                <div class="space-y-3 md:col-span-2">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-botanical-gold text-botanical-deep flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <span class="font-cinzel text-lg font-bold text-botanical-gold">MERZ BEAUTY GLOW</span>
+                    </div>
+                    <p class="text-white/70 text-xs max-w-md leading-relaxed font-medium">
+                        Malaybalay City's dedicated sanctuary for hair, skin, and spa wellness. Bringing out your authentic glow with botanical care.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-cinzel text-xs font-bold text-botanical-gold uppercase tracking-widest">Location</h4>
+                    <p class="text-white/80 text-xs leading-relaxed font-medium">
+                        <i class="fa-solid fa-location-dot text-botanical-gold mr-1.5"></i>
+                        Malaybalay City, Bukidnon, Philippines
+                    </p>
+                    <p class="text-white/80 text-xs leading-relaxed font-medium">
+                        <i class="fa-solid fa-phone text-botanical-gold mr-1.5"></i>
+                        +63 917 000 0000
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-cinzel text-xs font-bold text-botanical-gold uppercase tracking-widest">Operating Hours</h4>
+                    <p class="text-white/80 text-xs font-medium">Monday – Sunday</p>
+                    <p class="text-botanical-mint text-xs font-bold">9:00 AM – 7:00 PM</p>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 space-y-4 sm:space-y-0">
+                <p>© 2026 Merz Beauty Glow Salon & Spa. All rights reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-botanical-gold transition"><i class="fa-brands fa-facebook text-lg"></i></a>
+                    <a href="#" class="hover:text-botanical-gold transition"><i class="fa-brands fa-instagram text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="landing.js"></script>
+</body>
+</html>

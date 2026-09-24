@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Merz Beauty Glow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/landing.css">
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body class="auth-page">
+
+<div class="auth-card">
+  <div class="auth-header">
+    <img src="Asset/logo.png" alt="Merz Beauty Glow Salon and Spa" class="auth-logo">
+    <h2 class="form-title">Create an Account</h2>
+  </div>
+
+  <form id="standaloneRegisterForm" class="auth-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" name="firstName" placeholder="Jane" required />
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" name="lastName" placeholder="Doe" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Mobile Number</label>
+      <input type="tel" name="mobile" placeholder="0917XXXXXXX" required />
+    </div>
+
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" name="email" placeholder="jane@example.com" required />
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" name="password" placeholder="••••••••" required />
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" name="confirmPassword" placeholder="••••••••" required />
+    </div>
+
+    <button type="submit" class="btn-primary">Register Account</button>
+  </form>
+
+  <p class="auth-footer">
+    Already have an account? <a href="Customer_Login.html" class="link-gold">Sign In</a>
+  </p>
+</div>
+
+<script>
+  const ACCOUNTS_KEY = 'merzBeautyAccounts';
+  const SESSION_KEY = 'merzBeautySession';
+
+  const standaloneRegisterForm = document.getElementById('standaloneRegisterForm');
+
+  if (standaloneRegisterForm) {
+    standaloneRegisterForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+      const firstName = String(formData.get('firstName') || '').trim();
+      const lastName = String(formData.get('lastName') || '').trim();
+      const mobile = String(formData.get('mobile') || '').trim();
+      const email = String(formData.get('email') || '').trim();
+      const password = String(formData.get('password') || '');
+      const confirmPassword = String(formData.get('confirmPassword') || '');
+
+      if (!firstName || !lastName || !mobile || !email || !password || !confirmPassword) {
+        alert('Please complete all fields.');
+        return;
+      }
+
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters long.');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match.');
+        return;
+      }
+
+      const savedAccounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || '[]');
+      const exists = savedAccounts.some(account =>
+        account.email.toLowerCase() === email.toLowerCase() || account.mobile === mobile
+      );
+
+      if (exists) {
+        alert('An account with this email or mobile number already exists.');
+        return;
+      }
+
+      const user = { firstName, lastName, mobile, email, password };
+      savedAccounts.push(user);
+      localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(savedAccounts));
+      localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+
+      this.reset();
+      window.location.href = 'CUstomer_Dashboard.html';
+    });
+  }
+</script>
+</body>
+</html>
