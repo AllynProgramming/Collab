@@ -87,17 +87,15 @@
                     </div>
 
                     <form id="bookingForm" class="booking-form">
+                        <!-- Service Selection as Cards -->
                         <div class="field-group">
-                            <label for="service">Service</label>
-                            <select id="service" name="service" required>
-                                <option value="">Select a service</option>
-                                <option value="Facial & Skincare">Facial &amp; Skincare</option>
-                                <option value="Hair Styling & Care">Hair Styling &amp; Care</option>
-                                <option value="Body Spa & Massage">Body Spa &amp; Massage</option>
-                                <option value="Nail Art & Care">Nail Art &amp; Care</option>
-                                <option value="Waxing & Threading">Waxing &amp; Threading</option>
-                                <option value="Hand & Foot Care">Hand &amp; Foot Care</option>
-                            </select>
+                            <label>Select a service</label>
+                            <div class="service-cards-container" id="serviceCardsContainer"></div>
+                            <input type="hidden" id="service" name="service" required>
+                        </div>
+
+                        <div class="form-section-divider">
+                            <span>Schedule & Time</span>
                         </div>
 
                         <div class="field-group">
@@ -112,6 +110,10 @@
                             </div>
                             <input type="hidden" id="time" name="time" required>
                             <small id="slotHint" class="slot-hint">Morning and afternoon slots are offered for your selected service.</small>
+                        </div>
+
+                        <div class="form-section-divider">
+                            <span>Additional Details</span>
                         </div>
 
                         <div class="field-group">
@@ -130,6 +132,26 @@
                             <textarea id="notes" name="notes" rows="4" placeholder="Tell us your preferred treatment or concerns..."></textarea>
                         </div>
 
+                        <!-- Booking Summary -->
+                        <div class="booking-summary" id="bookingSummary" style="display: none;">
+                            <div class="booking-summary-item">
+                                <span class="booking-summary-label">Service:</span>
+                                <span class="booking-summary-value" id="summaryService">-</span>
+                            </div>
+                            <div class="booking-summary-item">
+                                <span class="booking-summary-label">Price:</span>
+                                <span class="booking-summary-value" id="summaryPrice">-</span>
+                            </div>
+                            <div class="booking-summary-item">
+                                <span class="booking-summary-label">Duration:</span>
+                                <span class="booking-summary-value" id="summaryDuration">-</span>
+                            </div>
+                            <div class="booking-summary-item">
+                                <span class="booking-summary-label">Date & Time:</span>
+                                <span class="booking-summary-value" id="summaryDateTime">-</span>
+                            </div>
+                        </div>
+
                         <button type="submit" class="gold-button full-width"><i class="fa-solid fa-calendar-check"></i> Confirm appointment</button>
                     </form>
                 </section>
@@ -144,16 +166,20 @@
                     </div>
 
                     <div id="appointmentsList" class="appointments-list" aria-live="polite"></div>
+                </section>
 
-                    <div id="reschedulePanel" class="reschedule-panel hidden" aria-live="polite">
-                        <div class="panel-heading compact-heading">
-                            <div>
-                                <span class="section-kicker">Update booking</span>
-                                <h2>Reschedule appointment</h2>
-                            </div>
+                <!-- Reschedule Modal -->
+                <div id="rescheduleModal" class="reschedule-modal hidden" aria-hidden="true" role="dialog" aria-labelledby="rescheduleModalTitle">
+                    <div class="reschedule-modal-overlay"></div>
+                    <div class="reschedule-modal-content">
+                        <div class="reschedule-modal-header">
+                            <h3 id="rescheduleModalTitle">Reschedule Appointment</h3>
+                            <button type="button" id="closeRescheduleModal" class="modal-close-button" aria-label="Close reschedule modal">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
                         </div>
 
-                        <form id="rescheduleForm" class="booking-form compact-form">
+                        <form id="rescheduleForm" class="reschedule-modal-form">
                             <input type="hidden" id="rescheduleId" name="rescheduleId">
 
                             <div class="field-group">
@@ -176,19 +202,20 @@
 
                             <div class="field-group">
                                 <label>Available time slots</label>
-                                <div id="rescheduleTimeSlots" class="time-slot-grid" aria-live="polite">
+                                <div id="rescheduleTimeSlots" class="time-slot-grid compact" aria-live="polite">
                                     <span class="slot-empty">Choose a service and date to see available times.</span>
                                 </div>
                                 <input type="hidden" id="rescheduleTime" name="rescheduleTime" required>
                                 <small id="rescheduleSlotHint" class="slot-hint">Select the new date and time for this appointment.</small>
                             </div>
 
-                            <div class="reschedule-actions">
-                                <button type="submit" class="gold-button small-button"><i class="fa-solid fa-calendar-check"></i> Save change</button>
+                            <div class="reschedule-modal-actions">
+                                <button type="submit" class="gold-button"><i class="fa-solid fa-calendar-check"></i> Save change</button>
                                 <button type="button" id="cancelRescheduleBtn" class="text-button">Cancel</button>
                             </div>
                         </form>
                     </div>
+                </div>
                 </section>
 
                 <section class="panel visits-panel">
@@ -250,7 +277,6 @@
         }
 
         document.getElementById('customerName').textContent = firstName;
-
         updateHeaderVisibility();
 
         const defaultAppointments = [
@@ -273,6 +299,61 @@
                 status: 'Pending'
             }
         ];
+
+        // Enhanced service data with prices and durations
+        const SERVICES = {
+            'Facial & Skincare': {
+                name: 'Facial & Skincare',
+                price: 1200,
+                duration: '60 mins',
+                description: 'Relaxing facial treatment with premium skincare products',
+                icon: 'fa-droplet'
+            },
+            'Hair Styling & Care': {
+                name: 'Hair Styling & Care',
+                price: 850,
+                duration: '90 mins',
+                description: 'Professional hair styling, coloring, and treatments',
+                icon: 'fa-wand-sparkles'
+            },
+            'Body Spa & Massage': {
+                name: 'Body Spa & Massage',
+                price: 1500,
+                duration: '120 mins',
+                description: 'Full body massage and relaxation therapy',
+                icon: 'fa-spa'
+            },
+            'Nail Art & Care': {
+                name: 'Nail Art & Care',
+                price: 550,
+                duration: '45 mins',
+                description: 'Manicure and pedicure with artistic designs',
+                icon: 'fa-hand-sparkles'
+            },
+            'Waxing & Threading': {
+                name: 'Waxing & Threading',
+                price: 300,
+                duration: '30 mins',
+                description: 'Professional hair removal services',
+                icon: 'fa-scissors'
+            },
+            'Hand & Foot Care': {
+                name: 'Hand & Foot Care',
+                price: 400,
+                duration: '45 mins',
+                description: 'Specialized care for hands and feet',
+                icon: 'fa-hand-sparkles'
+            }
+        };
+
+        const SERVICE_TIME_SLOTS = {
+            'Facial & Skincare': ['09:00 AM', '10:30 AM', '12:30 PM', '02:00 PM', '03:30 PM', '05:00 PM'],
+            'Hair Styling & Care': ['08:30 AM', '10:00 AM', '12:00 PM', '01:30 PM', '03:00 PM', '04:30 PM'],
+            'Body Spa & Massage': ['09:30 AM', '11:00 AM', '01:00 PM', '02:30 PM', '04:00 PM', '06:00 PM'],
+            'Nail Art & Care': ['09:00 AM', '10:30 AM', '12:00 PM', '02:00 PM', '04:00 PM'],
+            'Waxing & Threading': ['08:30 AM', '10:00 AM', '11:30 AM', '01:30 PM', '03:00 PM'],
+            'Hand & Foot Care': ['09:00 AM', '10:30 AM', '01:00 PM', '03:00 PM', '05:00 PM']
+        };
 
         function getAppointments() {
             const appointments = JSON.parse(localStorage.getItem(APPOINTMENTS_KEY) || 'null');
@@ -298,6 +379,43 @@
                 month: 'short',
                 day: 'numeric'
             }).format(date);
+        }
+
+        // Render service cards
+        function renderServiceCards() {
+            const container = document.getElementById('serviceCardsContainer');
+            const serviceInput = document.getElementById('service');
+            
+            container.innerHTML = Object.entries(SERVICES).map(([key, service]) => `
+                <div class="service-card" data-service="${key}">
+                    <div class="service-card-header">
+                        <div class="service-icon">
+                            <i class="fa-solid ${service.icon}"></i>
+                        </div>
+                        <div class="service-price">₱${service.price}</div>
+                    </div>
+                    <div class="service-card-title">${service.name}</div>
+                    <div class="service-card-meta">
+                        <div class="service-meta-item">
+                            <i class="fa-regular fa-clock"></i>
+                            ${service.duration}
+                        </div>
+                    </div>
+                    <div class="service-description">${service.description}</div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.service-card').forEach((card) => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.service-card').forEach((c) => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    
+                    const serviceName = card.dataset.service;
+                    serviceInput.value = serviceName;
+                    renderTimeSlots();
+                    updateBookingSummary();
+                });
+            });
         }
 
         function renderAppointments() {
@@ -349,15 +467,6 @@
             });
         }
 
-        const SERVICE_TIME_SLOTS = {
-            'Facial & Skincare': ['09:00 AM', '10:30 AM', '12:30 PM', '02:00 PM', '03:30 PM', '05:00 PM'],
-            'Hair Styling & Care': ['08:30 AM', '10:00 AM', '12:00 PM', '01:30 PM', '03:00 PM', '04:30 PM'],
-            'Body Spa & Massage': ['09:30 AM', '11:00 AM', '01:00 PM', '02:30 PM', '04:00 PM', '06:00 PM'],
-            'Nail Art & Care': ['09:00 AM', '10:30 AM', '12:00 PM', '02:00 PM', '04:00 PM'],
-            'Waxing & Threading': ['08:30 AM', '10:00 AM', '11:30 AM', '01:30 PM', '03:00 PM'],
-            'Hand & Foot Care': ['09:00 AM', '10:30 AM', '01:00 PM', '03:00 PM', '05:00 PM']
-        };
-
         const serviceSelect = document.getElementById('service');
         const dateInput = document.getElementById('date');
         const timeInput = document.getElementById('time');
@@ -370,7 +479,7 @@
         const rescheduleTime = document.getElementById('rescheduleTime');
         const rescheduleTimeSlots = document.getElementById('rescheduleTimeSlots');
         const rescheduleSlotHint = document.getElementById('rescheduleSlotHint');
-        const reschedulePanel = document.getElementById('reschedulePanel');
+        const rescheduleModal = document.getElementById('rescheduleModal');
 
         function formatSlotForValue(slotText) {
             const [time, period] = slotText.split(' ');
@@ -432,6 +541,7 @@
                     button.classList.add('selected');
                     button.setAttribute('aria-pressed', 'true');
                     timeControl.value = button.dataset.time;
+                    updateBookingSummary();
                 });
             });
 
@@ -472,6 +582,34 @@
             renderTimeSlots();
         }
 
+        function updateBookingSummary() {
+            const service = serviceSelect.value;
+            const date = dateInput.value;
+            const time = timeInput.value;
+
+            const summaryPanel = document.getElementById('bookingSummary');
+            
+            if (!service || !date || !time) {
+                summaryPanel.style.display = 'none';
+                return;
+            }
+
+            const serviceData = SERVICES[service];
+            const formattedDate = formatDate(date);
+            const formattedTime = new Date(`2000-01-01T${time}:00`).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+
+            document.getElementById('summaryService').textContent = service;
+            document.getElementById('summaryPrice').textContent = `₱${serviceData.price}`;
+            document.getElementById('summaryDuration').textContent = serviceData.duration;
+            document.getElementById('summaryDateTime').textContent = `${formattedDate} at ${formattedTime}`;
+
+            summaryPanel.style.display = 'block';
+        }
+
         function openRescheduleForm(appointmentId) {
             const appointment = getAppointments().find((item) => Number(item.id) === Number(appointmentId));
             if (!appointment) return;
@@ -482,12 +620,13 @@
             rescheduleDate.value = appointment.date;
             rescheduleTime.value = appointment.time;
             renderRescheduleSlots();
-            reschedulePanel.classList.remove('hidden');
-            reschedulePanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            rescheduleModal.classList.remove('hidden');
+            rescheduleModal.setAttribute('aria-hidden', 'false');
         }
 
         function closeRescheduleForm() {
-            reschedulePanel.classList.add('hidden');
+            rescheduleModal.classList.add('hidden');
+            rescheduleModal.setAttribute('aria-hidden', 'true');
             rescheduleForm.reset();
             rescheduleIdInput.value = '';
             rescheduleTime.value = '';
@@ -501,6 +640,15 @@
         rescheduleDate.addEventListener('change', renderRescheduleSlots);
 
         document.getElementById('cancelRescheduleBtn').addEventListener('click', closeRescheduleForm);
+        document.getElementById('closeRescheduleModal').addEventListener('click', closeRescheduleForm);
+        
+        // Close modal when clicking overlay
+        document.querySelector('.reschedule-modal-overlay').addEventListener('click', closeRescheduleForm);
+        
+        // Prevent modal close when clicking inside content
+        document.querySelector('.reschedule-modal-content').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
 
         document.getElementById('rescheduleForm').addEventListener('submit', function (event) {
             event.preventDefault();
@@ -558,6 +706,8 @@
             localStorage.setItem(APPOINTMENTS_KEY, JSON.stringify(appointments));
             renderAppointments();
             this.reset();
+            document.getElementById('bookingSummary').style.display = 'none';
+            document.querySelectorAll('.service-card').forEach((c) => c.classList.remove('selected'));
             showToast('Appointment booked successfully.');
         });
 
@@ -585,6 +735,7 @@
         });
 
         initBookingDate();
+        renderServiceCards();
         renderAppointments();
     </script>
 </body>
