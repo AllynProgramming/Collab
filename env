@@ -1,0 +1,17 @@
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
+# MongoDB Configuration - REPLACE WITH YOUR ATLAS CONNECTION STRING
+MONGODB_URI=mongodb+srv://admin:admin123@salon-cluster.xxxxx.mongodb.net/salon_booking_db?retryWrites=true&w=majority
+
+# JWT Configuration
+JWT_SECRET=salon_booking_system_super_secret_key_2024_change_this_in_production
+JWT_EXPIRE=7d
+
+# CORS Configuration
+CORS_ORIGIN=http://localhost:3000
+
+# Application Settings
+APP_NAME=Merz Beauty Glow Salon Booking System
+APP_VERSION=1.0.0
