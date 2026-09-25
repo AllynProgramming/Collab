@@ -108,6 +108,7 @@
             transition:
                 transform 0.2s ease,
                 background 0.2s ease;
+
         }
 
 
@@ -151,6 +152,95 @@
             }
 
         }
+
+        /* =========================================================
+        PROFILE FORM - FIX OVERLAPPING FIELDS
+        ========================================================= */
+
+        /* =========================================================
+   FIX PROFILE INPUT OVERLAPPING
+   ========================================================= */
+
+.profile-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-form-group {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.profile-form-group label {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+}
+
+.profile-form-group .input-wrapper {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-form-group .input-wrapper input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Prevent icons/validation icons from affecting input width */
+.profile-form-group .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.profile-form-group .validation-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   MOBILE / TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .profile-form {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .profile-form-group {
+        width: 100%;
+    }
+
+    .profile-form-group .input-wrapper {
+        width: 100%;
+    }
+
+    .profile-form-group .input-wrapper input {
+        width: 100%;
+    }
+}
 
     </style>
 
@@ -202,13 +292,13 @@
 
             <div class="profile-header-actions">
 
-                <a href="view_profile.html"
+                <a href="view_profile.html"s
                     class="profile-header-profile active">
 
                     <i class="fa-solid fa-user"></i>
 
                     <span>
-                        Profile
+                         Profile
                     </span>
 
                 </a>
@@ -325,6 +415,12 @@
                     Home
                 </a>
 
+                <i class="fa-solid fa-chevron-right"></i>
+
+                <a href="CUstomer_Dashboard.html">
+                    Customer Dashboard
+                </a>
+                
                 <i class="fa-solid fa-chevron-right"></i>
 
                 <a href="view_profile.html">
